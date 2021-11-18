@@ -1,0 +1,2 @@
+# EmailServer
+ MÔ PHỎNG HỆ THỐNG EMAIL BẰNG JAVA SOCKET
