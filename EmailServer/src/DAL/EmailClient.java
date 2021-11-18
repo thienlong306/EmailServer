@@ -21,7 +21,7 @@ public class EmailClient {
     public static void Connect() {
         try {
             host = InetAddress.getLocalHost();
-            link = new Socket("1.53.222.186", 52233);
+            link = new Socket(host, PORT);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {

@@ -17,7 +17,7 @@ import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 
 public class EmailServer {
     private static ServerSocket servSocket;
-    private static final int PORT = 52233;
+    private static final int PORT = 1234;
     private static ArrayList<User> listUser = new ArrayList<>();
     private static ObjectInputStream fileIn;
     private static ObjectOutputStream fileOut;
