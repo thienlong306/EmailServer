@@ -6,6 +6,7 @@ public class User implements Serializable {
     //DECLARE USERNAME AND PASSWORD VARAIBLES
     private String userName;
     private String password;
+    private String status="unlock";
     private int data = 100;
 
     //CLASS CONSTRUCTOR
@@ -34,6 +35,14 @@ public class User implements Serializable {
 
     public void setPassword(String pass) {
         password = pass;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getData() {

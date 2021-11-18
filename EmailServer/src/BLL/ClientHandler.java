@@ -26,9 +26,11 @@ public class ClientHandler extends Thread {
                 String option = (String) objectIn.readObject();
                 switch (option) {
                     case "C":
+                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Login");
                         new CheckUserServer(client).CheckUserServer();
                         break;
                     case "A":
+                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Add User");
                         new AddUserServer(client).AddUserServer();
                         break;
                     default:

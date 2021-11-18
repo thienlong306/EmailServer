@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import static BLL.ClientHandler.objectIn;
+import static DAL.EmailServer.listUser;
 
 public class CheckUserServer {
     public static Socket client;
@@ -18,15 +19,16 @@ public class CheckUserServer {
 
     public static void CheckUserServer() {
         try {
-            ArrayList<User> listUser = EmailServer.getAllUser();
-            System.out.println("CheckUserServer");
             ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
             Object o = objectIn.readObject();
             String checkLogin = "Error";
             if (o instanceof User) {
                 for (User u : listUser) {
                     if (((User) o).getUserName().equals(u.getUserName()) && ((User) o).getPassword().equals(u.getPassword()))
-                        checkLogin = "ok";
+                        if(u.getStatus().equals("unlock")) {
+                            checkLogin = "ok";
+                        }
+                        else checkLogin = "lock";
                 }
             }
             oos.writeObject(checkLogin);

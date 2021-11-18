@@ -31,6 +31,7 @@ public class SignUp extends JFrame {
         Login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setVisible(false);
                 new Login().setVisible(true);
             }
         });

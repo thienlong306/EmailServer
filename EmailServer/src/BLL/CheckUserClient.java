@@ -11,23 +11,23 @@ import java.util.Scanner;
 import static DAL.EmailClient.link;
 
 public class CheckUserClient {
-    public static boolean CheckUserClient(String user, String pass) {
+    public static String CheckUserClient(String user, String pass) {
+        Object o = null;
         try {
             User u = new User(user, pass);
             ObjectOutputStream oos = new ObjectOutputStream(link.getOutputStream());
             oos.writeObject("C");
             oos.writeObject(u);
             ObjectInputStream ois = new ObjectInputStream(link.getInputStream());
-            Object o = ois.readObject();
-            System.out.println();
+            o = ois.readObject();
             oos.flush();
-            if (o.equals("ok")) return true;
+            return (String) o;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
+        return (String) o;
     }
 
 }

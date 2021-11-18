@@ -20,7 +20,6 @@ public class AddUserServer {
     public static void AddUserServer() {
         try {
             ArrayList<User> listUser = EmailServer.getAllUser();
-            System.out.println("AddUserServer");
             ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
             Object o = objectIn.readObject();
             String addUser = "ok";
@@ -30,7 +29,6 @@ public class AddUserServer {
                         addUser = "Error";
                 }
             }
-            System.out.println(addUser);
             if(!addUser.equals("Error")) {
                 listUser.add((User) o);
                 addUser="ok";
