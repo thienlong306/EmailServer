@@ -1,10 +1,8 @@
 package DAL;
 
-import BLL.ServerHandler;
-import BLL.ClientHandler;
+import BLL.HandlerClient;
 import Enity.User;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -19,7 +17,7 @@ public class EmailServer {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         startUpServer();
-        ServerHandler handlerServer = new ServerHandler();
+        BLL.HandlerServer handlerServer = new BLL.HandlerServer();
         handlerServer.start();
 
        new EmailServer();
@@ -31,7 +29,7 @@ public class EmailServer {
 
         do {
             Socket client = servSocket.accept();
-            ClientHandler handler = new ClientHandler(client);
+            HandlerClient handler = new HandlerClient(client);
             handler.start();
         } while (true);
     }

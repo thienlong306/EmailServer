@@ -2,7 +2,11 @@ package DAL;
 
 import Enity.User;
 import GUI.Login;
+import GUI.Main;
 
+import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -18,6 +22,9 @@ public class EmailClient {
     public static ObjectInputStream objectIn;
     public static ObjectOutputStream objectOut;
 
+    private static final String DEFAULT_FONT_FAMILY = "SansSerif";
+    private static final int DEFAULT_FONT_SIZE = 16;
+
     public static void Connect() {
         try {
             host = InetAddress.getLocalHost();
@@ -29,9 +36,19 @@ public class EmailClient {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedLookAndFeelException {
         Connect();
-        new Login().setVisible(true);
+        UIManager.put("TextPane.font",
+                new Font(DEFAULT_FONT_FAMILY, Font.PLAIN, DEFAULT_FONT_SIZE));
+        UIManager.setLookAndFeel(new NimbusLookAndFeel());
+
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                new Login().setVisible(true);
+            }
+        });
     }
 
 }

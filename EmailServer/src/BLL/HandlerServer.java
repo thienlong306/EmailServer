@@ -11,7 +11,7 @@ import java.util.Scanner;
 import static DAL.EmailServer.listUser;
 
 
-public class ServerHandler extends Thread {
+public class HandlerServer extends Thread {
     //DECLARE VARIABLES USED IN CLASS
     public static ObjectInputStream objectIn;
     public static ObjectOutputStream objectOut;

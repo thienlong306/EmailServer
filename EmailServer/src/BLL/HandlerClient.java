@@ -5,14 +5,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class ClientHandler extends Thread {
+public class HandlerClient extends Thread {
     //DECLARE VARIABLES USED IN CLASS
     private Socket client;
     public static ObjectInputStream objectIn;
     public static ObjectOutputStream objectOut;
 
     //DECLARE CLASS CONSTRUCTOR
-    public ClientHandler(Socket socket) {
+    public HandlerClient(Socket socket) {
         //GET SOCKET REFERENCE FROM SERVER
         client = socket;
     }

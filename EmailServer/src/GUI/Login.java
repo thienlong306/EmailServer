@@ -29,7 +29,11 @@ public class Login extends JFrame {
                 CheckUserClient check = new CheckUserClient();
                 String result= String.valueOf(check.CheckUserClient(textFieldUser.getText(), textFieldPass.getText()));
                 if (result.equals("ok"))
+                {
                     JOptionPane.showMessageDialog(panelLogin, "Thành Công");
+                    setVisible(false);
+                    new Main().setVisible(true);
+                }
                 else if (result.equals("lock"))
                     JOptionPane.showMessageDialog(panelLogin, "User bị khóa");
                 else JOptionPane.showMessageDialog(panelLogin, "Sai");

@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import static BLL.ClientHandler.objectIn;
+import static BLL.HandlerClient.objectIn;
 
 public class AddUserServer {
     public static Socket client;
