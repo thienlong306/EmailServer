@@ -1,5 +1,7 @@
 package BLL;
 
+import Enity.Email;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -10,11 +12,14 @@ import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.text.*;
 
-public class SendClient extends JFrame {
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
+import static DAL.EmailClient.link;
+import static GUI.Login.username;
+
+public class SendClient {
+    private JTextField recipient;
+    private JTextField CC;
+    private JTextField BCC;
+    private JTextField subject;
 
     private JTextPane editor__;
     private JButton Send;
@@ -24,53 +29,68 @@ public class SendClient extends JFrame {
     private JComboBox<String> fontSizeComboBox__;
     private JButton fileButton;
     private JLabel detailFile;
-
-    private JPanel panelSendEmail;
     private JButton Read;
-
-    private File file__;
+    private JPanel panelSendEmail;
+    private File file__=null;
 
     private static final String[] FONT_SIZES = {"Font Size", "12", "14", "16", "18", "20", "22", "24", "26", "28", "30"};
 
-    public void setBoldButton(JButton boldButton, JTextPane editor__) {
-        boldButton.setAction(new StyledEditorKit.BoldAction());
-        boldButton.setHideActionText(true);
-        boldButton.setText("Bold");
-        boldButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                editor__.requestFocusInWindow();
-            }
-        });
+    public SendClient(JComboBox fontSizeComboBox__, JButton Send, JButton Read, JButton boldButton, JButton italicButton, JButton color, JButton fileButton, JLabel detailFile, JTextPane editor__, JPanel panelSendEmail, JTextField recipient, JTextField CC, JTextField BCC, JTextField subject) {
+        this.fontSizeComboBox__ = fontSizeComboBox__;
+        this.Send = Send;
+        this.Read = Read;
+        this.boldButton = boldButton;
+        this.italicButton = italicButton;
+        this.color = color;
+        this.fileButton = fileButton;
+        this.detailFile = detailFile;
+        this.editor__ = editor__;
+        this.panelSendEmail = panelSendEmail;
+        this.recipient = recipient;
+        this.CC = CC;
+        this.BCC = BCC;
+        this.subject = subject;
     }
-//    public SendClient() {
+
+    public void SetSendClient() {
 //        add(panelSendEmail);
 //        setSize(700, 500);
 //        setTitle("Send Email");
 //        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//        fontSizeComboBox__.setModel(new DefaultComboBoxModel<String>(FONT_SIZES));
-//
-//        EditButtonActionListener editButtonActionListener =
-//                new EditButtonActionListener();
-//
-//        Send.addActionListener(new SaveFileListener());
-//        Read.addActionListener(new OpenFileListener());
-//
-//        italicButton.setAction(new StyledEditorKit.ItalicAction());
-//        italicButton.setHideActionText(true);
-//        italicButton.setText("Italic");
-//        italicButton.addActionListener(editButtonActionListener);
-//
-//        color.addActionListener(new ColorActionListener());
-//
-//        fontSizeComboBox__.addItemListener(new FontSizeItemListener());
-//
-//        fileButton.addActionListener(new sendAttachment());
-//
-//        editor__.requestFocusInWindow();
-//    }
+        fontSizeComboBox__.setModel(new DefaultComboBoxModel<String>(FONT_SIZES));
 
+        EditButtonActionListener editButtonActionListener =
+                new EditButtonActionListener();
 
+        Send.addActionListener(new Send());
+        Read.addActionListener(new OpenFileListener());
+
+        boldButton.setAction(new StyledEditorKit.BoldAction());
+        boldButton.setHideActionText(true);
+        boldButton.setText("Bold");
+        boldButton.addActionListener(editButtonActionListener);
+
+        italicButton.setAction(new StyledEditorKit.ItalicAction());
+        italicButton.setHideActionText(true);
+        italicButton.setText("Italic");
+        italicButton.addActionListener(editButtonActionListener);
+
+        color.addActionListener(new ColorActionListener());
+
+        fontSizeComboBox__.addItemListener(new FontSizeItemListener());
+
+        fileButton.addActionListener(new sendAttachment());
+
+        editor__.requestFocusInWindow();
+    }
+
+    private class EditButtonActionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            editor__.requestFocusInWindow();
+        }
+    }
 
     private class ColorActionListener implements ActionListener {
         @Override
@@ -125,9 +145,9 @@ public class SendClient extends JFrame {
             if (result == JFileChooser.CANCEL_OPTION)
                 return;
             //CREATE NEW FILE FROM CHOOSER SELECTION
-            File temp = chooser.getSelectedFile();
+            file__ = chooser.getSelectedFile();
             //IF NO FILE SELECTED
-            if (temp == null || temp.getName().equals("")) {
+            if (file__ == null || file__.getName().equals("")) {
                 //DISPLAY ERROR MESSAGE
                 JOptionPane.showMessageDialog(this, "Invalid File Name", "Invalid File Name", JOptionPane.ERROR_MESSAGE);
             } else {
@@ -135,7 +155,7 @@ public class SendClient extends JFrame {
 //                    email.setAttachment(temp);
 //                    email.setAttachmentName(temp.getName());
                 //UPDATE GUI
-                detailFile.setText(temp.getName() + "(" + temp.length() / 1024 + "K)");
+                detailFile.setText(file__.getName() + "(" + file__.length() / 1024 + "K)");
             }
         }
     }
@@ -145,29 +165,25 @@ public class SendClient extends JFrame {
         return doc;
     }
 
-    private class SaveFileListener implements ActionListener {
+    private class Send implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (file__ == null) {
-                file__ = chooseFile();
-                if (file__ == null) {
-                    return;
-                }
+            try {
+                DefaultStyledDocument doc = (DefaultStyledDocument) getEditorDocument();
+                Email temp = new Email("long1", recipient.getText(), CC.getText(), BCC.getText(), subject.getText(), doc);
+                if(file__!=null) temp.setAttachment(file__);
+                ObjectOutputStream oos = new ObjectOutputStream(link.getOutputStream());
+                oos.writeObject("S");
+                oos.writeObject(temp);
+                ObjectInputStream ois = new ObjectInputStream(link.getInputStream());
+                Object o = ois.readObject();
+                JOptionPane.showMessageDialog(panelSendEmail,(String)o);
+                oos.flush();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (ClassNotFoundException classNotFoundException) {
+                classNotFoundException.printStackTrace();
             }
-            DefaultStyledDocument doc = (DefaultStyledDocument) getEditorDocument();
-
-            try (
-                    OutputStream fos = new FileOutputStream(file__);
-                    ObjectOutputStream oos = new ObjectOutputStream(fos)
-            ) {
-
-                oos.writeObject(doc);
-            } catch (IOException ex) {
-
-                throw new RuntimeException(ex);
-            }
-
-//            setFrameTitleWithExtn(file__.getName());
         }
 
         private File chooseFile() {

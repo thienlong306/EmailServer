@@ -13,6 +13,7 @@ public class Login extends JFrame {
     private JButton SignUp;
     private JButton SignIn;
     private JPanel panelLogin;
+    public static String username;
 
     public Login() {
         add(panelLogin);
@@ -27,14 +28,13 @@ public class Login extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CheckUserClient check = new CheckUserClient();
-                String result= String.valueOf(check.CheckUserClient(textFieldUser.getText(), textFieldPass.getText()));
-                if (result.equals("ok"))
-                {
+                String result = String.valueOf(check.CheckUserClient(textFieldUser.getText(), textFieldPass.getText()));
+                if (result.equals("ok")) {
+                    username = textFieldUser.getText();
                     JOptionPane.showMessageDialog(panelLogin, "Thành Công");
                     setVisible(false);
                     new Main().setVisible(true);
-                }
-                else if (result.equals("lock"))
+                } else if (result.equals("lock"))
                     JOptionPane.showMessageDialog(panelLogin, "User bị khóa");
                 else JOptionPane.showMessageDialog(panelLogin, "Sai");
             }

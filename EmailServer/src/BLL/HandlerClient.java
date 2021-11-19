@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class HandlerClient extends Thread {
+public class HandlerClient   extends Thread {
     //DECLARE VARIABLES USED IN CLASS
     private Socket client;
     public static ObjectInputStream objectIn;
@@ -32,6 +32,10 @@ public class HandlerClient extends Thread {
                     case "A":
                         System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Add User");
                         new AddUserServer(client).AddUserServer();
+                        break;
+                    case "S":
+                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Send");
+                        new SendServer(client).SendServer();
                         break;
                     default:
                         System.out.println("Không xác định");

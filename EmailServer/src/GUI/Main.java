@@ -1,9 +1,12 @@
 package GUI;
 
 import BLL.SendClient;
+import DAL.EmailClient;
 
 import javax.swing.*;
 import java.awt.*;
+
+import static GUI.Login.username;
 
 public class Main extends JFrame {
     private JPanel panelMain;
@@ -14,10 +17,10 @@ public class Main extends JFrame {
     private JPanel Spam;
     private JPanel Bin;
     private JPanel Send;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
+    private JTextField recipient;
+    private JTextField CC;
+    private JTextField BCC;
+    private JTextField subject;
     private JButton boldButton;
     private JButton italicButton;
     private JComboBox fontSizeComboBox__;
@@ -25,6 +28,8 @@ public class Main extends JFrame {
     private JButton color;
     private JLabel detailFile;
     private JTextPane editor__;
+    private JButton SendEmail;
+    private JButton ReadEmail;
 
     public Main() {
         add(panelMain);
@@ -35,13 +40,15 @@ public class Main extends JFrame {
         setBounds(((screenSize.width / 2) - (WIDTH / 2)),
                 ((screenSize.height / 2) - (HEIGHT / 2)), WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        SendClient sc = new SendClient();
-        sc.setBoldButton(boldButton,editor__);
+        SendClient sc = new SendClient(fontSizeComboBox__,SendEmail,ReadEmail,boldButton,italicButton,color,fileButton,detailFile,editor__,Send,recipient,CC,BCC,subject);
+        sc.SetSendClient();
     }
 
-    public static void main(String[] args) {
-        new Main().setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        EmailClient ec = new EmailClient();
+//        ec.Connect();
+//        new Main().setVisible(true);
+//    }
 
 
 }

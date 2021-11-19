@@ -1,16 +1,19 @@
 package Enity;
 
+import javax.swing.text.StyledDocument;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Email {
+public class Email implements Serializable {
     //DECLARE VARIABLES USED IN CLASS
     private String sender;
     private String recipient;
+    private String CC;
+    private String BCC;
     private String subject;
-    private String content;
-    private String attachmentName;
+    private StyledDocument content;
     private byte[] attachment;
     private boolean read;
     //DEFAULT CONSTRUCTOR
@@ -18,74 +21,78 @@ public class Email {
     {
         sender = "";
         recipient = "";
+        CC="";
+        BCC="";
         subject = "";
-        content = "";
-        attachmentName = "";
+        content = null;
         attachment = null;
         read = false;
     }
     //INITIALISED CONSTRUCTOR
-    public Email(String sender, String recipient, String subject,
-                 String content, String attachmentName, byte[] attachment)
+    public Email(String sender, String recipient,String CC,String BCC, String subject,
+                 StyledDocument content)
     {
         this.sender = sender;
         this.recipient = recipient;
+        this.CC=CC;
+        this.BCC=BCC;
         this.subject = subject;
         this.content = content;
-        this.attachmentName = attachmentName;
-        this.attachment = attachment;
         read = false;
     }
-    //ACCESSOR METHODS
-    public String getSender()
-    {
+
+    public String getSender() {
         return sender;
     }
-    public String getRecipient()
-    {
-        return recipient;
-    }
-    public String getSubject()
-    {
-        return subject;
-    }
-    public String getContent()
-    {
-        return content;
-    }
-    public String getAttachmentName()
-    {
-        return attachmentName;
-    }
-    public byte[] getAttachment()
-    {
-        return attachment;
-    }
-    public boolean getRead()
-    {
-        return read;
-    }
-    //MUTATOR METHODS
-    public void setSender(String sender)
-    {
+
+    public void setSender(String sender) {
         this.sender = sender;
     }
-    public void setRecipient(String recipient)
-    {
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
         this.recipient = recipient;
     }
-    public void setSubject(String subject)
-    {
+
+    public String getCC() {
+        return CC;
+    }
+
+    public void setCC(String CC) {
+        this.CC = CC;
+    }
+
+    public String getBCC() {
+        return BCC;
+    }
+
+    public void setBCC(String BCC) {
+        this.BCC = BCC;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
         this.subject = subject;
     }
-    public void setContent(String content)
-    {
+
+    public StyledDocument getContent() {
+        return content;
+    }
+
+    public void setContent(StyledDocument content) {
         this.content = content;
     }
-    public void setAttachmentName(String attachmentName)
-    {
-        this.attachmentName = attachmentName;
+
+    public byte[] getAttachment() {
+        return attachment;
     }
+
     public void setAttachment(File temp)
     {
         //CONVERTS REFERENCE TO FILE OBJECT INTO BYTE ARRAY FOR SERAILIZATION
@@ -103,8 +110,12 @@ public class Email {
             e.printStackTrace();
         }
     }
-    public void setRead(boolean read)
-    {
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
         this.read = read;
     }
 }
