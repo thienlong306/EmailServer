@@ -1,9 +1,8 @@
 package DAL;
 
-import BLL.ClientHandler;
 import BLL.ServerHandler;
+import BLL.ClientHandler;
 import Enity.User;
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
