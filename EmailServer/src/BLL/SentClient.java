@@ -61,7 +61,7 @@ public class SentClient {
                 try {
                     if (inbox.getSelectedRow() != -1) {
                         Reading reading = new Reading();
-                        reading.setReading(listEmailSent.get(inbox.getSelectedRow()).getRecipient(), listEmailSent.get(inbox.getSelectedRow()).getCC(), listEmailSent.get(inbox.getSelectedRow()).getBCC(), listEmailSent.get(inbox.getSelectedRow()).getSubject(), listEmailSent.get(inbox.getSelectedRow()).getContent(), listEmailSent.get(inbox.getSelectedRow()).getNameAttchment());
+                        reading.setReading(listEmailSent.get(inbox.getSelectedRow()).getRecipient(), listEmailSent.get(inbox.getSelectedRow()).getCC(), listEmailSent.get(inbox.getSelectedRow()).getBCC(), listEmailSent.get(inbox.getSelectedRow()).getSubject(), listEmailSent.get(inbox.getSelectedRow()).getContent(), listEmailSent.get(inbox.getSelectedRow()).getNameAttchment(),listEmailSent.get(inbox.getSelectedRow()).getAttachment());
                         reading.setStatusUser("Nhận");
                         reading.setVisible(true);
                         reload();

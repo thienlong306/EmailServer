@@ -61,7 +61,7 @@ public class InboxClient {
                 try {
                     if (inbox.getSelectedRow() != -1) {
                         Reading reading = new Reading();
-                        reading.setReading(listEmailRecip.get(inbox.getSelectedRow()).getSender(), listEmailRecip.get(inbox.getSelectedRow()).getCC(), listEmailRecip.get(inbox.getSelectedRow()).getBCC(), listEmailRecip.get(inbox.getSelectedRow()).getSubject(), listEmailRecip.get(inbox.getSelectedRow()).getContent(), listEmailRecip.get(inbox.getSelectedRow()).getNameAttchment());
+                        reading.setReading(listEmailRecip.get(inbox.getSelectedRow()).getSender(), listEmailRecip.get(inbox.getSelectedRow()).getCC(), listEmailRecip.get(inbox.getSelectedRow()).getBCC(), listEmailRecip.get(inbox.getSelectedRow()).getSubject(), listEmailRecip.get(inbox.getSelectedRow()).getContent(), listEmailRecip.get(inbox.getSelectedRow()).getNameAttchment(), listEmailRecip.get(inbox.getSelectedRow()).getAttachment());
                         reading.setVisible(true);
                         int index = listEmail.indexOf(listEmailRecip.get(inbox.getSelectedRow()));
                         ObjectOutputStream oos = new ObjectOutputStream(link.getOutputStream());

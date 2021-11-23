@@ -61,7 +61,7 @@ public class ReadClient {
                 try {
                     if (inbox.getSelectedRow() != -1) {
                         Reading reading = new Reading();
-                        reading.setReading(listEmailRead.get(inbox.getSelectedRow()).getSender(), listEmailRead.get(inbox.getSelectedRow()).getCC(), listEmailRead.get(inbox.getSelectedRow()).getBCC(), listEmailRead.get(inbox.getSelectedRow()).getSubject(), listEmailRead.get(inbox.getSelectedRow()).getContent(), listEmailRead.get(inbox.getSelectedRow()).getNameAttchment());
+                        reading.setReading(listEmailRead.get(inbox.getSelectedRow()).getSender(), listEmailRead.get(inbox.getSelectedRow()).getCC(), listEmailRead.get(inbox.getSelectedRow()).getBCC(), listEmailRead.get(inbox.getSelectedRow()).getSubject(), listEmailRead.get(inbox.getSelectedRow()).getContent(), listEmailRead.get(inbox.getSelectedRow()).getNameAttchment(),listEmailRead.get(inbox.getSelectedRow()).getAttachment());
                         reading.setVisible(true);
                         reload();
                     }
