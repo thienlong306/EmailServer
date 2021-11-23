@@ -22,6 +22,7 @@ public class HandlerClient   extends Thread {
         System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Connection");
         try {
             do {
+                System.out.println("HandlerClient");
                 objectIn = new ObjectInputStream(client.getInputStream());
                 String option = (String) objectIn.readObject();
                 switch (option) {
@@ -37,11 +38,20 @@ public class HandlerClient   extends Thread {
                         System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Send");
                         new SendServer(client).SendServer();
                         break;
+                    case "L":
+                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " ListEmail");
+                        new ListServer(client).ListServer();
+                        break;
+                    case "R":
+                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Read");
+                        new ReadingServer(client).ReadingServer();
+                        break;
                     default:
                         System.out.println("Không xác định");
                 }
             } while (true);
         } catch (IOException e) {
+//            e.printStackTrace();
             System.out.println(client.getInetAddress().getHostName() + " Disconnect");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

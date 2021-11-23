@@ -15,30 +15,31 @@ public class Email implements Serializable {
     private String subject;
     private StyledDocument content;
     private byte[] attachment;
-    private boolean read;
+    private String nameAttchment;
+    private String status;
+
     //DEFAULT CONSTRUCTOR
-    public Email()
-    {
+    public Email() {
         sender = "";
         recipient = "";
-        CC="";
-        BCC="";
+        CC = "";
+        BCC = "";
         subject = "";
         content = null;
         attachment = null;
-        read = false;
+        status = "Sent";
     }
+
     //INITIALISED CONSTRUCTOR
-    public Email(String sender, String recipient,String CC,String BCC, String subject,
-                 StyledDocument content)
-    {
+    public Email(String sender, String recipient, String CC, String BCC, String subject,
+                 StyledDocument content) {
         this.sender = sender;
         this.recipient = recipient;
-        this.CC=CC;
-        this.BCC=BCC;
+        this.CC = CC;
+        this.BCC = BCC;
         this.subject = subject;
         this.content = content;
-        read = false;
+        status = "Sent";
     }
 
     public String getSender() {
@@ -93,29 +94,33 @@ public class Email implements Serializable {
         return attachment;
     }
 
-    public void setAttachment(File temp)
-    {
+    public void setAttachment(File temp) {
         //CONVERTS REFERENCE TO FILE OBJECT INTO BYTE ARRAY FOR SERAILIZATION
-        try
-        {
+        try {
             FileInputStream fileIn = new FileInputStream(temp.getAbsolutePath());
             long fileLength = (temp.length());
-            int intFileLength = (int)fileLength;
+            int intFileLength = (int) fileLength;
             attachment = new byte[intFileLength];
             fileIn.read(attachment);
             fileIn.close();
-        }
-        catch(IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean isRead() {
-        return read;
+    public String getNameAttchment() {
+        return nameAttchment;
     }
 
-    public void setRead(boolean read) {
-        this.read = read;
+    public void setNameAttchment(String nameAttchment) {
+        this.nameAttchment = nameAttchment;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

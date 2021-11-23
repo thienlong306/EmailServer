@@ -14,6 +14,8 @@ import javax.swing.text.*;
 
 import static DAL.EmailClient.link;
 import static GUI.Login.username;
+import static GUI.Main.ois;
+import static GUI.Main.oos;
 
 public class SendClient {
     private JTextField recipient;
@@ -63,7 +65,6 @@ public class SendClient {
                 new EditButtonActionListener();
 
         Send.addActionListener(new Send());
-        Read.addActionListener(new OpenFileListener());
 
         boldButton.setAction(new StyledEditorKit.BoldAction());
         boldButton.setHideActionText(true);
@@ -170,12 +171,15 @@ public class SendClient {
         public void actionPerformed(ActionEvent e) {
             try {
                 DefaultStyledDocument doc = (DefaultStyledDocument) getEditorDocument();
-                Email temp = new Email("long1", recipient.getText(), CC.getText(), BCC.getText(), subject.getText(), doc);
-                if(file__!=null) temp.setAttachment(file__);
-                ObjectOutputStream oos = new ObjectOutputStream(link.getOutputStream());
+                Email temp = new Email(username, recipient.getText(), CC.getText(), BCC.getText(), subject.getText(), doc);
+                if(file__!=null) {
+                    temp.setNameAttchment(file__.getName());
+                    temp.setAttachment(file__);
+                }
+                oos = new ObjectOutputStream(link.getOutputStream());
                 oos.writeObject("S");
                 oos.writeObject(temp);
-                ObjectInputStream ois = new ObjectInputStream(link.getInputStream());
+                ois = new ObjectInputStream(link.getInputStream());
                 Object o = ois.readObject();
                 JOptionPane.showMessageDialog(panelSendEmail,(String)o);
                 oos.flush();

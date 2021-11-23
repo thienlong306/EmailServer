@@ -43,7 +43,6 @@ public class EmailClient {
         UIManager.setLookAndFeel(new NimbusLookAndFeel());
 
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 new Login().setVisible(true);
