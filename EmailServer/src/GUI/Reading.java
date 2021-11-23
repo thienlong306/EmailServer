@@ -32,12 +32,12 @@ public class Reading extends JFrame {
         this.editor__.setDocument(editor__);
         this.detailFile.setText(detailFile);
         this.attachment = attachment;
+        if(detailFile!=null) saveFileButton.setEnabled(true);
     }
 
     public void setStatusUser(String text) {
         statusUser.setText(text);
     }
-
     public Reading() {
         add(Read);
         setTitle("Reading");
@@ -73,7 +73,8 @@ public class Reading extends JFrame {
                         //CLOSE FILESTREAM
                         fileOut.close();
                     } catch (IOException ioe) {
-                        ioe.printStackTrace();
+                        JOptionPane.showMessageDialog(Read,"Không có file để save");
+//                        ioe.printStackTrace();
                     }
                 }
             }

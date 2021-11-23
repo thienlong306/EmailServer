@@ -97,7 +97,7 @@ public class Test {
             }
         }
             ObjectOutputStream fileOutSend = null;
-            fileOutSend = new ObjectOutputStream(new FileOutputStream("src/Data/long2.dat"));
+//            fileOutSend = new ObjectOutputStream(new FileOutputStream("src/Data/long2.dat"));
             if(listEmailSent.size()!=0){
                 for (int i = 0; i < listEmailSent.size(); i++) {
                     if(listEmailSent.get(i).getStatus().equals("Read")){
