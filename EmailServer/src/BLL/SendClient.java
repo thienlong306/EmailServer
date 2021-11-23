@@ -9,6 +9,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.text.*;
 
@@ -32,12 +34,13 @@ public class SendClient {
     private JButton fileButton;
     private JLabel detailFile;
     private JButton Read;
+    private JButton addImg;
     private JPanel panelSendEmail;
     private File file__=null;
 
     private static final String[] FONT_SIZES = {"Font Size", "12", "14", "16", "18", "20", "22", "24", "26", "28", "30"};
 
-    public SendClient(JComboBox fontSizeComboBox__, JButton Send, JButton Read, JButton boldButton, JButton italicButton, JButton color, JButton fileButton, JLabel detailFile, JTextPane editor__, JPanel panelSendEmail, JTextField recipient, JTextField CC, JTextField BCC, JTextField subject) {
+    public SendClient(JComboBox fontSizeComboBox__, JButton Send, JButton Read, JButton boldButton, JButton italicButton, JButton color, JButton fileButton, JLabel detailFile, JTextPane editor__, JPanel panelSendEmail, JTextField recipient, JTextField CC, JTextField BCC, JTextField subject,JButton addImg) {
         this.fontSizeComboBox__ = fontSizeComboBox__;
         this.Send = Send;
         this.Read = Read;
@@ -52,6 +55,7 @@ public class SendClient {
         this.CC = CC;
         this.BCC = BCC;
         this.subject = subject;
+        this.addImg=addImg;
     }
 
     public void SetSendClient() {
@@ -79,6 +83,8 @@ public class SendClient {
         color.addActionListener(new ColorActionListener());
 
         fontSizeComboBox__.addItemListener(new FontSizeItemListener());
+
+        addImg.addActionListener(new PictureInsertActionListener());
 
         fileButton.addActionListener(new sendAttachment());
 
@@ -132,6 +138,42 @@ public class SendClient {
             editor__.requestFocusInWindow();
         }
     }
+
+    private class PictureInsertActionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            File pictureFile = choosePictureFile();
+
+            if (pictureFile == null) {
+
+                editor__.requestFocusInWindow();
+                return;
+            }
+
+            ImageIcon icon = new ImageIcon(pictureFile.toString());
+            JButton picButton = new JButton(icon);
+            editor__.insertComponent(picButton);
+            editor__.requestFocusInWindow();
+        }
+
+        private File choosePictureFile() {
+
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "PNG, JPG & GIF Images", "png", "jpg", "gif");
+            chooser.setFileFilter(filter);
+
+            if (chooser.showOpenDialog(panelSendEmail) == JFileChooser.APPROVE_OPTION) {
+
+                return chooser.getSelectedFile();
+            }
+            else {
+                return null;
+            }
+        }
+    } // PictureInsertActionListener
 
     private class sendAttachment extends Component implements ActionListener {
         @Override

@@ -57,6 +57,7 @@ public class Main extends JFrame {
     private JButton spamButton2;
     private JButton deleteButton2;
     private JButton reloadButton2;
+    private JButton addImg;
 
     public static ObjectInputStream ois;
     public static ObjectOutputStream oos;
@@ -79,7 +80,7 @@ public class Main extends JFrame {
         setBounds(((screenSize.width / 2) - (WIDTH / 2)),
                 ((screenSize.height / 2) - (HEIGHT / 2)), WIDTH, HEIGHT);
 
-        SendClient sc = new SendClient(fontSizeComboBox__,SendEmail,ReadEmail,boldButton,italicButton,color,fileButton,detailFile,editor__,Send,recipient,CC,BCC,subject);
+        SendClient sc = new SendClient(fontSizeComboBox__,SendEmail,ReadEmail,boldButton,italicButton,color,fileButton,detailFile,editor__,Send,recipient,CC,BCC,subject,addImg);
         sc.SetSendClient();
 
         InboxClient ic = new InboxClient(inbox, readButton,deleteButton,replyButton,spamButton,reloadButton,tabbeMain);
