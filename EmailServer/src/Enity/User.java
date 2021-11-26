@@ -1,6 +1,7 @@
 package Enity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable {
     //DECLARE USERNAME AND PASSWORD VARAIBLES
@@ -8,6 +9,7 @@ public class User implements Serializable {
     private String password;
     private String status="unlock";
     private int data = 100;
+    private ArrayList<String> listSpam=new ArrayList<>();
 
     //CLASS CONSTRUCTOR
     public User() {
@@ -51,5 +53,13 @@ public class User implements Serializable {
 
     public void setData(int data) {
         this.data = data;
+    }
+
+    public ArrayList<String> getListSpam() {
+        return listSpam;
+    }
+
+    public void ListSpam(ArrayList<String> listSpam) {
+        this.listSpam = listSpam;
     }
 }

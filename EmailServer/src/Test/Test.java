@@ -6,8 +6,6 @@ import Enity.User;
 import java.io.*;
 import java.util.ArrayList;
 
-import static BLL.HandlerClient.objectIn;
-
 public class Test {
     private static ArrayList<User> list1=new ArrayList<>();
     private static ArrayList<User> list2=new ArrayList<>();
@@ -97,11 +95,11 @@ public class Test {
             }
         }
             ObjectOutputStream fileOutSend = null;
-//            fileOutSend = new ObjectOutputStream(new FileOutputStream("src/Data/long2.dat"));
+            fileOutSend = new ObjectOutputStream(new FileOutputStream("src/Data/long2.dat"));
             if(listEmailSent.size()!=0){
                 for (int i = 0; i < listEmailSent.size(); i++) {
-                    if(listEmailSent.get(i).getStatus().equals("Read")){
-                        listEmailSent.get(i).setStatus("Recip");
+                    if(listEmailSent.get(i).getStatus().equals("Recip")){
+                        listEmailSent.get(i).setStatus("Delete");
                         fileOutSend.writeObject(listEmailSent.get(i));
                     }
 
@@ -111,8 +109,12 @@ public class Test {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 //        write();
 //        writeAdd();
-//        readEmail();
+        readEmail();
 //        check();
-        setEmail();
-        }
+//        setEmail();
+//        ArrayList<String> temp = new ArrayList<>();
+//        temp.add("long1");
+//        System.out.println(temp.get(0));
+
+    }
 }
