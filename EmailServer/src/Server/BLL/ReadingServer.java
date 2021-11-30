@@ -23,9 +23,7 @@ public class ReadingServer {
         ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
         Object o = objectIn.readObject();
         String username=(String)o;
-        System.out.println((String)o);
         String check = "ok";
-
         ArrayList<Email> listEmailSent = new ArrayList<>();
         File fileSent = new File("src/Data/"+(String) o+".dat");
         if(fileSent.length()!=0){

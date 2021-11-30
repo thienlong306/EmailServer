@@ -5,6 +5,10 @@ import Enity.User;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class Test {
     private static ArrayList<User> list1=new ArrayList<>();
@@ -46,7 +50,7 @@ public class Test {
 
     }
     public static void readUser() throws IOException, ClassNotFoundException {
-        FileInputStream fis=new FileInputStream("src/Data/Test.dat");
+        FileInputStream fis=new FileInputStream("src/Data/User.dat");
                     fileIn = new ObjectInputStream(fis);
             while (fis.available()!=0) {
                 User temp = (User) fileIn.readObject();
@@ -79,6 +83,18 @@ public class Test {
             }
         }
     }
+    public static void readUserData() throws IOException, ClassNotFoundException {
+        FileInputStream fis=new FileInputStream("src/Data/User.dat");
+        fileIn = new ObjectInputStream(fis);
+        while (fis.available()!=0) {
+            Object o = fileIn.readObject();
+            if(o instanceof User){
+                User temp = (User) o;
+                System.out.println(temp.getUserName() + "-" + temp.getData());
+            }
+        }
+    }
+
     public static void setEmail() throws IOException, ClassNotFoundException {
         ArrayList<Email> listEmailSent = new ArrayList<>();
         File fileSent = new File("src/Data/long2.dat");
@@ -106,15 +122,35 @@ public class Test {
                 }
             }
     }
+    public void schduled(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(
+                Calendar.DAY_OF_WEEK,
+                Calendar.MONDAY
+        );
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 40);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+
+
+        Timer time = new Timer(); // Instantiate Timer Object
+
+        // Start running the task on Monday at 15:40:00, period is set to 8 hours
+        // if you want to run the task immediately, set the 2nd parameter to 0
+//        time.schedule(new CustomTask(), calendar.getTime(), TimeUnit.HOURS.toMillis(8));
+    }
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 //        write();
 //        writeAdd();
-        readEmail();
+//        readEmail();
 //        check();
 //        setEmail();
 //        ArrayList<String> temp = new ArrayList<>();
 //        temp.add("long1");
 //        System.out.println(temp.get(0));
+//        readUserData();
 
     }
 }

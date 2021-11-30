@@ -8,9 +8,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import static Client.EmailClient.link;
 import static Client.GUI.Login.username;
 
 public class Main extends JFrame {
@@ -67,6 +69,8 @@ public class Main extends JFrame {
     private JButton replyButton4;
     private JButton spamButton4;
     private JButton deleteButton4;
+    private JButton replyAllButton1;
+    private JButton scheduleButton;
 
     public static ObjectInputStream ois;
     public static ObjectOutputStream oos;
@@ -76,6 +80,18 @@ public class Main extends JFrame {
                 {
                     public void windowClosing(WindowEvent e)
                     {
+                        try {
+                            oos = new ObjectOutputStream(link.getOutputStream());
+                            oos.writeObject("C");
+                            oos.writeObject("LG");
+                            ois = new ObjectInputStream(link.getInputStream());
+                            Object o = ois.readObject();
+                            JOptionPane.showMessageDialog(panelMain,"Logout");
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        } catch (ClassNotFoundException classNotFoundException) {
+                            classNotFoundException.printStackTrace();
+                        }
                         new Login().setVisible(true);
                     }
                 }
@@ -91,13 +107,13 @@ public class Main extends JFrame {
 
         
 
-        SendClient sc = new SendClient(fontSizeComboBox__,SendEmail,ReadEmail,boldButton,italicButton,color,fileButton,detailFile,editor__,Send,recipient,CC,BCC,subject,addImg);
+        SendClient sc = new SendClient(fontSizeComboBox__,SendEmail,scheduleButton,ReadEmail,boldButton,italicButton,color,fileButton,detailFile,editor__,Send,recipient,CC,BCC,subject,addImg);
         sc.SetSendClient();
 
         InboxClient ic = new InboxClient(inbox, readButton,deleteButton,replyButton,spamButton,reloadButton,tabbeMain);
         ic.setInboxClient();
 
-        ReadClient rc = new ReadClient(tableRead, readButton1,deleteButton1,replyButton1,spamButton1,reloadButton1,tabbeMain);
+        ReadClient rc = new ReadClient(tableRead, readButton1,deleteButton1,replyButton1,replyAllButton1,spamButton1,reloadButton1,tabbeMain,recipient,CC);
         rc.setReadClient();
 
         SentClient sct = new SentClient(sent, readButton2,deleteButton2,replyButton2,spamButton2,reloadButton2,tabbeMain);

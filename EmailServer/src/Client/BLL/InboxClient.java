@@ -43,7 +43,7 @@ public class InboxClient {
     }
 
     public void setInboxClient() {
-        String col[] = {"Người giửi", "Chủ đề", "Nội dung", "File"};
+        String col[] = {"Người giửi", "Chủ đề", "Nội dung", "File","Thời gian"};
         model = new DefaultTableModel(col, 0);
         getListInbox();
         inbox.setModel(model);
@@ -142,7 +142,7 @@ public class InboxClient {
                 if (listEmail.get(i).getStatus().equals("Recip")) {
                     listEmailRecip.add(listEmail.get(i));
                     StyledDocument doc = (DefaultStyledDocument) listEmail.get(i).getContent();
-                    Object[] data = {listEmail.get(i).getSender(), listEmail.get(i).getSubject(), doc.getText(0, doc.getLength()), listEmail.get(i).getNameAttchment()};
+                    Object[] data = {listEmail.get(i).getSender(), listEmail.get(i).getSubject(), doc.getText(0, doc.getLength()), listEmail.get(i).getNameAttchment(),listEmail.get(i).getDateTime()};
                     model.addRow(data);
                     count++;
                 }

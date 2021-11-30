@@ -25,6 +25,9 @@ public class SignUp extends JFrame {
         setBounds(((screenSize.width / 2) - (WIDTH / 2)),
                 ((screenSize.height / 2) - (HEIGHT / 2)), WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+
+
         Login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

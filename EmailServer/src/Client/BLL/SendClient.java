@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.*;
+import javax.security.auth.Subject;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.*;
@@ -22,8 +23,8 @@ public class SendClient {
     private JTextField CC;
     private JTextField BCC;
     private JTextField subject;
-
     private JTextPane editor__;
+
     private JButton Send;
     private JButton boldButton;
     private JButton color;
@@ -35,10 +36,11 @@ public class SendClient {
     private JButton addImg;
     private JPanel panelSendEmail;
     private File file__=null;
+    private JButton Schedule;
 
     private static final String[] FONT_SIZES = {"Font Size", "12", "14", "16", "18", "20", "22", "24", "26", "28", "30"};
 
-    public SendClient(JComboBox fontSizeComboBox__, JButton Send, JButton Read, JButton boldButton, JButton italicButton, JButton color, JButton fileButton, JLabel detailFile, JTextPane editor__, JPanel panelSendEmail, JTextField recipient, JTextField CC, JTextField BCC, JTextField subject,JButton addImg) {
+    public SendClient(JComboBox fontSizeComboBox__, JButton Send,JButton Schedule, JButton Read, JButton boldButton, JButton italicButton, JButton color, JButton fileButton, JLabel detailFile, JTextPane editor__, JPanel panelSendEmail, JTextField recipient, JTextField CC, JTextField BCC, JTextField subject,JButton addImg) {
         this.fontSizeComboBox__ = fontSizeComboBox__;
         this.Send = Send;
         this.Read = Read;
@@ -54,6 +56,7 @@ public class SendClient {
         this.BCC = BCC;
         this.subject = subject;
         this.addImg=addImg;
+        this.Schedule=Schedule;
     }
 
     public void SetSendClient() {
@@ -87,6 +90,22 @@ public class SendClient {
         fileButton.addActionListener(new sendAttachment());
 
         editor__.requestFocusInWindow();
+
+        Schedule.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DefaultStyledDocument doc = (DefaultStyledDocument) getEditorDocument();
+                Email temp1 = new Email(username, recipient.getText(), CC.getText(), BCC.getText(), subject.getText(), doc);
+                if(file__!=null) {
+                    temp1.setNameAttchment(file__.getName());
+                    temp1.setAttachment(file__);
+                }
+
+                ScheduleClient SC= new ScheduleClient();
+                SC.setEmail(temp1);
+                SC.setVisible(true);
+            }
+        });
     }
 
     private class EditButtonActionListener implements ActionListener {
@@ -223,6 +242,11 @@ public class SendClient {
                 Object o = ois.readObject();
                 JOptionPane.showMessageDialog(panelSendEmail,(String)o);
                 oos.flush();
+                recipient.setText("");
+                CC.setText("");
+                BCC.setText("");
+                subject.setText("");
+                editor__.setText("");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             } catch (ClassNotFoundException classNotFoundException) {

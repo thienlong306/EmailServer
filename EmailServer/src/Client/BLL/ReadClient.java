@@ -26,24 +26,30 @@ public class ReadClient {
     private JButton readButton;
     private JButton deleteButton;
     private JButton replyButton;
+    private JButton replyButtonAll;
     private JButton spamButton;
     private JButton reloadButton;
+    private JTextField recipient;
+    private JTextField CC;
     private static DefaultTableModel model;
     public static ArrayList<Email> listEmail = new ArrayList<>();
     public static ArrayList<Email> listEmailRead = new ArrayList<>();
 
-    public ReadClient(JTable inbox, JButton readButton, JButton deleteButton, JButton replyButton, JButton spamButton, JButton reloadButton, JTabbedPane tabedPane) {
+    public ReadClient(JTable inbox, JButton readButton, JButton deleteButton, JButton replyButton,JButton replyButtonAll, JButton spamButton, JButton reloadButton, JTabbedPane tabedPane,JTextField recipient,JTextField CC) {
         this.inbox = inbox;
         this.readButton = readButton;
         this.deleteButton = deleteButton;
         this.replyButton = replyButton;
+        this.replyButtonAll=replyButtonAll;
         this.spamButton = spamButton;
         this.reloadButton = reloadButton;
         this.tabedPane = tabedPane;
+        this.recipient=recipient;
+        this.CC=CC;
     }
 
     public void setReadClient() {
-        String col[] = {"Người giửi", "Chủ đề", "Nội dung", "File"};
+        String col[] = {"Người giửi", "Chủ đề", "Nội dung", "File","Thời gian"};
         model = new DefaultTableModel(col, 0);
         getListRead();
         inbox.setModel(model);
@@ -54,6 +60,8 @@ public class ReadClient {
                 readButton.setEnabled(true);
                 spamButton.setEnabled(true);
                 deleteButton.setEnabled(true);
+                replyButton.setEnabled(true);
+                replyButtonAll.setEnabled(true);
             }
         });
         readButton.addActionListener(new ActionListener() {
@@ -69,6 +77,21 @@ public class ReadClient {
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
+            }
+        });
+        replyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                recipient.setText(listEmailRead.get(inbox.getSelectedRow()).getSender());
+                tabedPane.setSelectedIndex(0);
+            }
+        });
+        replyButtonAll.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                recipient.setText(listEmailRead.get(inbox.getSelectedRow()).getSender());
+                CC.setText(listEmailRead.get(inbox.getSelectedRow()).getCC());
+                tabedPane.setSelectedIndex(0);
             }
         });
         deleteButton.addActionListener(new ActionListener() {
@@ -135,7 +158,7 @@ reload();
                 if (listEmail.get(i).getStatus().equals("Read")) {
                     listEmailRead.add(listEmail.get(i));
                     StyledDocument doc = (DefaultStyledDocument) listEmail.get(i).getContent();
-                    Object[] data = {listEmail.get(i).getSender(), listEmail.get(i).getSubject(), doc.getText(0, doc.getLength()), listEmail.get(i).getNameAttchment()};
+                    Object[] data = {listEmail.get(i).getSender(), listEmail.get(i).getSubject(), doc.getText(0, doc.getLength()), listEmail.get(i).getNameAttchment(),listEmail.get(i).getDateTime()};
                     model.addRow(data);
                     count++;
                 }

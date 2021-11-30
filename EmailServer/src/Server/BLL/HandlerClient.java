@@ -10,7 +10,7 @@ public class HandlerClient   extends Thread {
     private Socket client;
     public static ObjectInputStream objectIn;
     public static ObjectOutputStream objectOut;
-
+    public static String usermain;
     //DECLARE CLASS CONSTRUCTOR
     public HandlerClient(Socket socket) {
         //GET SOCKET REFERENCE FROM SERVER
@@ -22,12 +22,11 @@ public class HandlerClient   extends Thread {
         System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Connection");
         try {
             do {
-                System.out.println("HandlerClient");
                 objectIn = new ObjectInputStream(client.getInputStream());
                 String option = (String) objectIn.readObject();
                 switch (option) {
                     case "C":
-                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Login");
+//                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Login");
                         new CheckUserServer(client).CheckUserServer();
                         break;
                     case "A":
@@ -38,8 +37,12 @@ public class HandlerClient   extends Thread {
                         System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Send");
                         new SendServer(client).SendServer();
                         break;
+                    case "SC":
+                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Schedule");
+                        new ScheduleServer(client).ScheduleServer();
+                        break;
                     case "L":
-                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " ListEmail");
+//                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " ListEmail");
                         new ListServer(client).ListServer();
                         break;
                     case "R":

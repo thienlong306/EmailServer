@@ -45,7 +45,7 @@ public class SpamClient {
     }
 
     public void setSpamClient() {
-        String col[] = {"Người giửi", "Chủ đề", "Nội dung", "File"};
+        String col[] = {"Người giửi", "Chủ đề", "Nội dung", "File","Thời gian"};
         model = new DefaultTableModel(col, 0);
         getListSpam();
         inbox.setModel(model);
@@ -117,7 +117,7 @@ public class SpamClient {
                 if (listEmail.get(i).getStatus().equals("Spam")) {
                     listEmailSpam.add(listEmail.get(i));
                     StyledDocument doc = (DefaultStyledDocument) listEmail.get(i).getContent();
-                    Object[] data = {listEmail.get(i).getSender(), listEmail.get(i).getSubject(), doc.getText(0, doc.getLength()), listEmail.get(i).getNameAttchment()};
+                    Object[] data = {listEmail.get(i).getSender(), listEmail.get(i).getSubject(), doc.getText(0, doc.getLength()), listEmail.get(i).getNameAttchment(),listEmail.get(i).getDateTime()};
                     model.addRow(data);
                     count++;
                 }

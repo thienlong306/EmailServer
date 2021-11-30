@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import static Server.BLL.HandlerClient.objectIn;
+import static Server.BLL.HandlerClient.usermain;
 import static Server.EmailServer.listUser;
 
 public class CheckUserServer {
@@ -19,15 +20,20 @@ public class CheckUserServer {
             ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
             Object o = objectIn.readObject();
             String checkLogin = "Error";
-            if (o instanceof User) {
-                for (User u : listUser) {
-                    if (((User) o).getUserName().equals(u.getUserName()) && ((User) o).getPassword().equals(u.getPassword()))
-                        if(u.getStatus().equals("unlock")) {
-                            checkLogin = "ok";
-                        }
-                        else checkLogin = "lock";
+            if (o.equals("LG")){
+                System.out.println(usermain+" Logout");
+            }else {
+                if (o instanceof User) {
+                    for (User u : listUser) {
+                        if (((User) o).getUserName().equals(u.getUserName()) && ((User) o).getPassword().equals(u.getPassword()))
+                            if (u.getStatus().equals("unlock")) {
+                                checkLogin = "ok";
+                                usermain = ((User) o).getUserName();
+                            } else checkLogin = "lock";
+                    }
                 }
             }
+            if(checkLogin.equals("ok")) System.out.println(((User) o).getUserName()+" Login");
             oos.writeObject(checkLogin);
             oos.flush();
         } catch (IOException e) {

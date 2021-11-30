@@ -21,6 +21,7 @@ public class Login extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         final int HEIGHT = 200;
         final int WIDTH = 300;
+
         setBounds(((screenSize.width / 2) - (WIDTH / 2)),
                 ((screenSize.height / 2) - (HEIGHT / 2)), WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -47,5 +48,4 @@ public class Login extends JFrame {
             }
         });
     }
-
 }

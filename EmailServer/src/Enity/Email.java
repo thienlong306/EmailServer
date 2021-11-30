@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Email implements Serializable {
     //DECLARE VARIABLES USED IN CLASS
@@ -17,6 +19,7 @@ public class Email implements Serializable {
     private byte[] attachment;
     private String nameAttchment;
     private String status;
+    private LocalDateTime dateTime;
 
     //DEFAULT CONSTRUCTOR
     public Email() {
@@ -28,6 +31,7 @@ public class Email implements Serializable {
         content = null;
         attachment = null;
         status = "Sent";
+        dateTime= LocalDateTime.now();
     }
 
     //INITIALISED CONSTRUCTOR
@@ -40,6 +44,7 @@ public class Email implements Serializable {
         this.subject = subject;
         this.content = content;
         status = "Sent";
+        dateTime= LocalDateTime.now();
     }
 
     public String getSender() {
@@ -123,4 +128,13 @@ public class Email implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
+
+    public String getDateTime() {
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = dateTime.format(myFormatObj);
+        return formattedDate;
+    }
+
+
 }
