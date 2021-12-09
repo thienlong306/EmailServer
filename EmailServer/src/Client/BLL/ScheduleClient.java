@@ -101,7 +101,6 @@ public class ScheduleClient extends JFrame {
                 calendar.set(Calendar.MINUTE, minute);
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
-                System.out.println(calendar.getTime());
 
              try {
                  oos = new ObjectOutputStream(link.getOutputStream());

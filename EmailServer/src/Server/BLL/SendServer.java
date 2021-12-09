@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import static Server.BLL.HandlerClient.objectIn;
+import static Server.EmailServer.listUser;
 
 public class SendServer {
     public static Socket client;
@@ -17,42 +18,58 @@ public class SendServer {
     }
     public static void SendServer() {
         try {
-            ArrayList<User> listUser = EmailServer.getAllUser();
             ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
             Object o = objectIn.readObject();
+            String check="not ok";
+            String username="Tài khoản người nhận không đủ dung lượng: ";
 
             Object sent=o;
-            syn(sent,((Email)sent).getSender());
+            if(checkData(((Email)sent).getSender())) {
+                check="ok";
+                syn(sent, ((Email) sent).getSender());
 
-            Object bcc=o;
-            ((Email)bcc).setStatus("Recip");
-            if(((Email)bcc).getBCC().contains(";")){
-                String listBcc[]=((Email)bcc).getBCC().split(";");
-                for(int i=0;i<listBcc.length;i++){
-                    syn(bcc,listBcc[i]);
+                Object bcc = o;
+                ((Email) bcc).setStatus("Recip");
+                if (((Email) bcc).getBCC().contains(";")) {
+                    String listBcc[] = ((Email) bcc).getBCC().split(";");
+                    for (int i = 0; i < listBcc.length; i++) {
+                        if (checkData(listBcc[i]))
+                        syn(bcc, listBcc[i]);
+                        else username+=listBcc[i]+" ";
+                    }
+                } else if (!((Email) bcc).getBCC().equals("")) {
+                    if(checkData(((Email) bcc).getBCC()))
+                    syn(bcc, ((Email) bcc).getBCC());
+                    else username+=((Email) bcc).getBCC()+" ";
                 }
-            }else if(!((Email)bcc).getBCC().equals("")){
-                syn(bcc,((Email)bcc).getBCC());
-            }
 
-            Object recip=o;
-            ((Email)recip).setStatus("Recip");
-            ((Email)recip).setBCC("");
-            syn(recip,((Email)recip).getRecipient());
+                Object recip = o;
+                ((Email) recip).setStatus("Recip");
+                ((Email) recip).setBCC("");
+                if (checkData(((Email) recip).getRecipient()))
+                syn(recip, ((Email) recip).getRecipient());
+                else username+=((Email) recip).getRecipient()+" ";
 
-            Object cc=o;
-            ((Email)cc).setStatus("Recip");
-            ((Email)cc).setBCC("");
-            if(((Email)cc).getCC().contains(";")){
-                String listCc[] = ((Email)cc).getCC().split(";");
-                for(int i=0;i< listCc.length;i++){
-                    syn(cc,listCc[i]);
+                Object cc = o;
+                ((Email) cc).setStatus("Recip");
+                ((Email) cc).setBCC("");
+                if (((Email) cc).getCC().contains(";")) {
+                    String listCc[] = ((Email) cc).getCC().split(";");
+                    for (int i = 0; i < listCc.length; i++) {
+                        if (checkData(listCc[i]))
+                        syn(cc, listCc[i]);
+                        else username+=listCc[i]+" ";
+                    }
+                } else if (!((Email) cc).getCC().equals("")) {
+                    if (checkData(((Email) cc).getCC()))
+                    syn(cc, ((Email) cc).getCC());
+                    else username+=((Email) cc).getCC()+" ";
                 }
-            }else if(!((Email)cc).getCC().equals("")){
-                syn(cc,((Email)cc).getCC());
-            }
-            String check="ok";
+            }else check="Bạn không đủ dung lượng";
+            if (username.equals("Tài khoản người nhận không đủ dung lượng: "))
             oos.writeObject(check);
+            else oos.writeObject(username);
+
             oos.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -87,5 +104,19 @@ public class SendServer {
             objectOut.writeObject(o);
             objectOut.close();
         }
+    }
+    public static boolean checkData(String username) {
+        try {
+            File file = new File("src/Data/"+username+".dat");
+            long megabytes=file.length()/(1024*1024);
+            for (int i=0; i<listUser.size();i++){
+                if(listUser.get(i).getUserName().equals(username))
+                    if(megabytes>listUser.get(i).getData()) return false;
+                    else return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 }

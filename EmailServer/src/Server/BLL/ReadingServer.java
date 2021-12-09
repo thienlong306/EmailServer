@@ -50,6 +50,5 @@ public class ReadingServer {
             }
         }
         oos.writeObject(check);
-
     }
 }

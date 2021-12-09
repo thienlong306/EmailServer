@@ -71,6 +71,8 @@ public class Main extends JFrame {
     private JButton deleteButton4;
     private JButton replyAllButton1;
     private JButton scheduleButton;
+    private JButton replyAllButton2;
+    private JPanel Info;
 
     public static ObjectInputStream ois;
     public static ObjectOutputStream oos;
@@ -116,13 +118,13 @@ public class Main extends JFrame {
         ReadClient rc = new ReadClient(tableRead, readButton1,deleteButton1,replyButton1,replyAllButton1,spamButton1,reloadButton1,tabbeMain,recipient,CC);
         rc.setReadClient();
 
-        SentClient sct = new SentClient(sent, readButton2,deleteButton2,replyButton2,spamButton2,reloadButton2,tabbeMain);
+        SentClient sct = new SentClient(sent, readButton2,deleteButton2,replyButton2,replyAllButton2,spamButton2,reloadButton2,tabbeMain,recipient,CC,BCC);
         sct.setSentClient();
 
-        SpamClient sp = new SpamClient(tableSpam, readButton3,deleteButton3,replyButton3,spamButton3,reloadButton3,tabbeMain);
+        SpamClient sp = new SpamClient(tableSpam, readButton3,deleteButton3,replyButton3,spamButton3,reloadButton3,tabbeMain,recipient,CC);
         sp.setSpamClient();
 
-        DeleteClient dc = new DeleteClient(tableDelete, readButton4,deleteButton4,replyButton4,spamButton4,reloadButton4,tabbeMain);
+        DeleteClient dc = new DeleteClient(tableDelete, readButton4,deleteButton4,replyButton4,reloadButton4,tabbeMain,recipient);
         dc.setDeleteClien();
 
         tabbeMain.addChangeListener(new ChangeListener() {
@@ -145,6 +147,8 @@ public class Main extends JFrame {
                 }
             }
         });
+
+
     }
 
     public static void main(String[] args) {

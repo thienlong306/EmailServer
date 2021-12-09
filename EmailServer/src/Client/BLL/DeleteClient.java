@@ -30,18 +30,19 @@ public class DeleteClient {
     private JButton replyButton;
     private JButton spamButton;
     private JButton reloadButton;
+    private JTextField recipient;
     private static DefaultTableModel model;
     public static ArrayList<Email> listEmail = new ArrayList<>();
     public static ArrayList<Email> listEmailDelete = new ArrayList<>();
 
-    public DeleteClient(JTable inbox, JButton readButton, JButton deleteButton, JButton replyButton, JButton spamButton, JButton reloadButton, JTabbedPane tabedPane) {
+    public DeleteClient(JTable inbox, JButton readButton, JButton deleteButton, JButton replyButton, JButton reloadButton, JTabbedPane tabedPane,JTextField recipient) {
         this.inbox = inbox;
         this.readButton = readButton;
         this.deleteButton = deleteButton;
         this.replyButton = replyButton;
-        this.spamButton = spamButton;
         this.reloadButton = reloadButton;
         this.tabedPane = tabedPane;
+        this.recipient=recipient;
     }
 
     public void setDeleteClien() {
@@ -54,25 +55,8 @@ public class DeleteClient {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 readButton.setEnabled(true);
-                spamButton.setEnabled(true);
+                replyButton.setEnabled(true);
                 deleteButton.setEnabled(true);
-            }
-        });
-        spamButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    oos = new ObjectOutputStream(link.getOutputStream());
-                    oos.writeObject("SP");
-                    oos.writeObject(username);
-                    oos.writeObject(listEmailDelete.get(inbox.getSelectedRow()).getSender());
-                    ois = new ObjectInputStream(link.getInputStream());
-                    String text = (String)ois.readObject();
-                    JOptionPane.showMessageDialog(tabedPane,text);
-
-                } catch (IOException | ClassNotFoundException ioException) {
-                    ioException.printStackTrace();
-                }
             }
         });
         readButton.addActionListener(new ActionListener() {
@@ -88,6 +72,13 @@ public class DeleteClient {
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
+            }
+        });
+        replyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                recipient.setText(listEmailDelete.get(inbox.getSelectedRow()).getRecipient());
+                tabedPane.setSelectedIndex(0);
             }
         });
         deleteButton.addActionListener(new ActionListener() {

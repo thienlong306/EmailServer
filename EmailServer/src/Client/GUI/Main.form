@@ -246,15 +246,6 @@
                   <text value="Read"/>
                 </properties>
               </component>
-              <component id="99111" class="javax.swing.JButton" binding="replyButton" default-binding="true">
-                <constraints>
-                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <text value="Reply"/>
-                </properties>
-              </component>
               <component id="5ebc6" class="javax.swing.JButton" binding="spamButton" default-binding="true">
                 <constraints>
                   <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -399,15 +390,6 @@
                   <text value="Reply"/>
                 </properties>
               </component>
-              <component id="48e40" class="javax.swing.JButton" binding="spamButton2" default-binding="true">
-                <constraints>
-                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <text value="Spam"/>
-                </properties>
-              </component>
               <component id="fded1" class="javax.swing.JButton" binding="deleteButton2" default-binding="true">
                 <constraints>
                   <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -423,6 +405,15 @@
                 </constraints>
                 <properties>
                   <text value="Reload"/>
+                </properties>
+              </component>
+              <component id="c1cfc" class="javax.swing.JButton" binding="replyAllButton2">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <enabled value="false"/>
+                  <text value="ReplyAll"/>
                 </properties>
               </component>
             </children>
@@ -481,7 +472,7 @@
                 </constraints>
                 <properties>
                   <enabled value="false"/>
-                  <text value="Spam"/>
+                  <text value="Not Spam"/>
                 </properties>
               </component>
               <component id="762b9" class="javax.swing.JButton" binding="deleteButton3" default-binding="true">
@@ -542,15 +533,6 @@
                   <text value="Reply"/>
                 </properties>
               </component>
-              <component id="e35e" class="javax.swing.JButton" binding="spamButton4" default-binding="true">
-                <constraints>
-                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <enabled value="false"/>
-                  <text value="Spam"/>
-                </properties>
-              </component>
               <component id="225ab" class="javax.swing.JButton" binding="deleteButton4" default-binding="true">
                 <constraints>
                   <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -561,6 +543,15 @@
                 </properties>
               </component>
             </children>
+          </grid>
+          <grid id="1c028" binding="Info" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Info"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children/>
           </grid>
         </children>
       </tabbedpane>

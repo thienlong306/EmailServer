@@ -16,9 +16,6 @@ public class TaskServer extends TimerTask {
 
     public void run() {
         try {
-            Object sent=o;
-            syn(sent,((Email)sent).getSender());
-
             Object bcc=o;
             ((Email)bcc).setStatus("Recip");
             if(((Email)bcc).getBCC().contains(";")){

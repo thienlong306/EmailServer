@@ -8,10 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -56,6 +53,7 @@ public class InboxClient {
                 deleteButton.setEnabled(true);
             }
         });
+
         readButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

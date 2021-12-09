@@ -30,11 +30,13 @@ public class SpamClient {
     private JButton replyButton;
     private JButton spamButton;
     private JButton reloadButton;
+    private JTextField recipient;
+    private JTextField CC;
     private static DefaultTableModel model;
     public static ArrayList<Email> listEmail = new ArrayList<>();
     public static ArrayList<Email> listEmailSpam = new ArrayList<>();
 
-    public SpamClient(JTable inbox, JButton readButton, JButton deleteButton, JButton replyButton, JButton spamButton, JButton reloadButton, JTabbedPane tabedPane) {
+    public SpamClient(JTable inbox, JButton readButton, JButton deleteButton, JButton replyButton, JButton spamButton, JButton reloadButton, JTabbedPane tabedPane,JTextField recipient,JTextField CC) {
         this.inbox = inbox;
         this.readButton = readButton;
         this.deleteButton = deleteButton;
@@ -42,6 +44,8 @@ public class SpamClient {
         this.spamButton = spamButton;
         this.reloadButton = reloadButton;
         this.tabedPane = tabedPane;
+        this.recipient=recipient;
+        this.CC=CC;
     }
 
     public void setSpamClient() {
@@ -55,6 +59,8 @@ public class SpamClient {
                 super.mouseClicked(e);
                 readButton.setEnabled(true);
                 spamButton.setEnabled(true);
+                deleteButton.setEnabled(true);
+                replyButton.setEnabled(true);
             }
         });
         spamButton.addActionListener(new ActionListener() {
@@ -74,6 +80,13 @@ public class SpamClient {
                 }
             }
         });
+        replyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                recipient.setText(listEmailSpam.get(inbox.getSelectedRow()).getSender());
+                tabedPane.setSelectedIndex(0);
+            }
+        });
         readButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,6 +95,25 @@ public class SpamClient {
                         Reading reading = new Reading();
                         reading.setReading(listEmailSpam.get(inbox.getSelectedRow()).getSender(), listEmailSpam.get(inbox.getSelectedRow()).getCC(), listEmailSpam.get(inbox.getSelectedRow()).getBCC(), listEmailSpam.get(inbox.getSelectedRow()).getSubject(), listEmailSpam.get(inbox.getSelectedRow()).getContent(), listEmailSpam.get(inbox.getSelectedRow()).getNameAttchment(),listEmailSpam.get(inbox.getSelectedRow()).getAttachment());
                         reading.setVisible(true);
+                        reload();
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (inbox.getSelectedRow() != -1) {
+                        int index = listEmail.indexOf(listEmailSpam.get(inbox.getSelectedRow()));
+                        ObjectOutputStream oos = new ObjectOutputStream(link.getOutputStream());
+                        oos.writeObject("D");
+                        oos.writeObject(username);
+                        oos.writeObject(index);
+                        ObjectInputStream ois = new ObjectInputStream(link.getInputStream());
+                        String check = (String) ois.readObject();
                         reload();
                     }
                 } catch (Exception exception) {

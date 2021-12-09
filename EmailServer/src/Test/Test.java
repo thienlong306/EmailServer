@@ -2,8 +2,11 @@ package Test;
 
 import Enity.Email;
 import Enity.User;
+import Server.EmailServer;
 
 import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
@@ -30,12 +33,27 @@ public class Test {
     static ObjectInputStream fileIn;
     static ObjectOutputStream fileOu;
     static MyObjectOutputStream oos;
+    public static String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            return convertByteToHex(messageDigest);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static String convertByteToHex(byte[] data) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < data.length; i++) {
+            sb.append(Integer.toString((data[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
+    }
     public static void write() throws IOException {
-        fileOu = new ObjectOutputStream(new FileOutputStream("src/Data/Test.dat"));
-        User u1 = new User("long1","123");
-        User u2 = new User("long2","123");
+        fileOu = new ObjectOutputStream(new FileOutputStream("src/Data/User.dat"));
+        String pass = getMD5("admin");
+        User u1 = new User("admin@sv.com",pass);
         fileOu.writeObject(u1);
-        fileOu.writeObject(u2);
         fileOu.close();
 
     }
@@ -141,6 +159,17 @@ public class Test {
         // if you want to run the task immediately, set the 2nd parameter to 0
 //        time.schedule(new CustomTask(), calendar.getTime(), TimeUnit.HOURS.toMillis(8));
     }
+    public static boolean checkData(String username) throws IOException, ClassNotFoundException {
+        readUser();
+        File file = new File("src/Data/"+username+".dat");
+        long megabytes=file.length()/(1024*1024);
+        for (int i=0; i<list1.size();i++){
+            if(list1.get(i).getUserName().equals(username))
+                if(megabytes>list1.get(i).getData()) return false;
+                else return true;
+        }
+        return false;
+    }
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 //        write();
 //        writeAdd();
@@ -151,6 +180,10 @@ public class Test {
 //        temp.add("long1");
 //        System.out.println(temp.get(0));
 //        readUserData();
+     readUser();
+     for (int i=0;i<list1.size();i++)
+         System.out.println(list1.get(i).getUserName()+"-"+list1.get(i).getPassword());
+
 
     }
 }
