@@ -32,14 +32,18 @@ public class SendServer {
                 ((Email) bcc).setStatus("Recip");
                 if (((Email) bcc).getBCC().contains(";")) {
                     String listBcc[] = ((Email) bcc).getBCC().split(";");
+                    ((Email) bcc).setBCC("Bạn");
                     for (int i = 0; i < listBcc.length; i++) {
                         if (checkData(listBcc[i]))
                         syn(bcc, listBcc[i]);
                         else username+=listBcc[i]+" ";
                     }
                 } else if (!((Email) bcc).getBCC().equals("")) {
-                    if(checkData(((Email) bcc).getBCC()))
-                    syn(bcc, ((Email) bcc).getBCC());
+                    if(checkData(((Email) bcc).getBCC())) {
+                        String tmp=((Email) bcc).getBCC();
+                        ((Email) bcc).setBCC("Bạn");
+                        syn(bcc, tmp);
+                    }
                     else username+=((Email) bcc).getBCC()+" ";
                 }
 

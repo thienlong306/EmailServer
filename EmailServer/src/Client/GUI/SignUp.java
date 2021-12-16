@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class SignUp extends JFrame {
     private JPanel panel;
@@ -16,7 +18,6 @@ public class SignUp extends JFrame {
     private JButton Login;
 
     public SignUp(){
-
         add(panelSignUp);
         setTitle("Đăng ký");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -26,8 +27,7 @@ public class SignUp extends JFrame {
                 ((screenSize.height / 2) - (HEIGHT / 2)), WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-
-
+        panelSignUp.setFocusable(true);
         Login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -42,6 +42,28 @@ public class SignUp extends JFrame {
                 if (check.AddUserClient(textField1.getText(), passwordField1.getText()))
                     JOptionPane.showMessageDialog(panelSignUp, "Thành Công");
                 else JOptionPane.showMessageDialog(panelSignUp, "Lỗi");
+            }
+        });
+
+        textField1.setText("exam@sv.com");
+        textField1.setForeground(Color.GRAY);
+        textField1.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                super.focusGained(e);
+                if (textField1.getText().equals("exam@sv.com")) {
+                    textField1.setText("");
+                    textField1.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (textField1.getText().isEmpty()) {
+                    textField1.setForeground(Color.GRAY);
+                    textField1.setText("exam@sv.com");
+                }
             }
         });
     }

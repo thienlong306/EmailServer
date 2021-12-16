@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -18,6 +19,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import static Client.EmailClient.link;
+import static Client.EmailClient.user;
 import static Client.GUI.Login.username;
 import static Client.GUI.Main.ois;
 import static Client.GUI.Main.oos;
@@ -46,7 +48,7 @@ public class DeleteClient {
     }
 
     public void setDeleteClien() {
-        String col[] = {"Người giửi", "Chủ đề", "Nội dung", "File","Thời gian"};
+        String col[] = {"Người giửi","Người nhận", "Chủ đề", "Nội dung", "File","Thời gian"};
         model = new DefaultTableModel(col, 0);
         getListSpam();
         inbox.setModel(model);
@@ -77,7 +79,10 @@ public class DeleteClient {
         replyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                recipient.setText(listEmailDelete.get(inbox.getSelectedRow()).getRecipient());
+                recipient.setForeground(Color.BLACK);
+                if(listEmailDelete.get(inbox.getSelectedRow()).getRecipient().equals(username))
+                recipient.setText(listEmailDelete.get(inbox.getSelectedRow()).getSender());
+                else  recipient.setText(listEmailDelete.get(inbox.getSelectedRow()).getRecipient());
                 tabedPane.setSelectedIndex(0);
             }
         });
@@ -128,7 +133,7 @@ public class DeleteClient {
                 if (listEmail.get(i).getStatus().equals("Delete")) {
                     listEmailDelete.add(listEmail.get(i));
                     StyledDocument doc = (DefaultStyledDocument) listEmail.get(i).getContent();
-                    Object[] data = {listEmail.get(i).getSender(), listEmail.get(i).getSubject(), doc.getText(0, doc.getLength()), listEmail.get(i).getNameAttchment(),listEmail.get(i).getDateTime()};
+                    Object[] data = {listEmail.get(i).getSender(),listEmail.get(i).getRecipient(), listEmail.get(i).getSubject(), doc.getText(0, doc.getLength()), listEmail.get(i).getNameAttchment(),listEmail.get(i).getDateTime()};
                     model.addRow(data);
                     count++;
                 }

@@ -100,7 +100,7 @@ public class Main extends JFrame {
         );
 
         add(panelMain);
-        setTitle("Main");
+        setTitle(username);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         final int HEIGHT = 500;
         final int WIDTH = 800;
@@ -147,17 +147,5 @@ public class Main extends JFrame {
                 }
             }
         });
-
-
     }
-
-    public static void main(String[] args) {
-        username="long2";
-        EmailClient ec = new EmailClient();
-        ec.Connect();
-        Main m = new Main();
-        m.setVisible(true);
-    }
-
-
 }

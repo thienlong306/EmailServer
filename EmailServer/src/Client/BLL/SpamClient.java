@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -83,6 +84,7 @@ public class SpamClient {
         replyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                recipient.setForeground(Color.BLACK);
                 recipient.setText(listEmailSpam.get(inbox.getSelectedRow()).getSender());
                 tabedPane.setSelectedIndex(0);
             }

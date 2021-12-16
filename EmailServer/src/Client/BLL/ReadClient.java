@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -83,12 +84,15 @@ public class ReadClient {
             @Override
             public void actionPerformed(ActionEvent e) {
                 recipient.setText(listEmailRead.get(inbox.getSelectedRow()).getSender());
+                recipient.setForeground(Color.BLACK);
                 tabedPane.setSelectedIndex(0);
             }
         });
         replyButtonAll.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                recipient.setForeground(Color.BLACK);
+                CC.setForeground(Color.BLACK);
                 recipient.setText(listEmailRead.get(inbox.getSelectedRow()).getSender());
                 CC.setText(listEmailRead.get(inbox.getSelectedRow()).getCC());
                 tabedPane.setSelectedIndex(0);

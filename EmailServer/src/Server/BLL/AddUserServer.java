@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import static Server.BLL.HandlerClient.objectIn;
 
@@ -23,7 +24,13 @@ public class AddUserServer {
             ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
             Object o = objectIn.readObject();
             String addUser = "ok";
-            if (o instanceof User) {
+
+            String pattern ="^[\\w.+\\-]+@sv\\.com$";
+            String matcher = ((User)o).getUserName();
+            if(!Pattern.matches(pattern, matcher))
+            {
+                addUser = "Error";
+            }else if (o instanceof User) {
                 for (User u : listUser) {
                     if (((User) o).getUserName().equals(u.getUserName()))
                         addUser = "Error";

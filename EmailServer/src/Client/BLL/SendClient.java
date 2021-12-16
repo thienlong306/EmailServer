@@ -3,10 +3,7 @@ package Client.BLL;
 import Enity.Email;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.io.*;
 import javax.security.auth.Subject;
 import javax.swing.*;
@@ -65,7 +62,7 @@ public class SendClient {
 //        setTitle("Send Email");
 //        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fontSizeComboBox__.setModel(new DefaultComboBoxModel<String>(FONT_SIZES));
-
+        PlaceHolder();
         EditButtonActionListener editButtonActionListener =
                 new EditButtonActionListener();
 
@@ -104,6 +101,75 @@ public class SendClient {
                 ScheduleClient SC= new ScheduleClient();
                 SC.setEmail(temp1);
                 SC.setVisible(true);
+            }
+        });
+
+    }
+
+    private void PlaceHolder(){
+        recipient.setText("exam@sv.com");
+        recipient.setForeground(Color.GRAY);
+        recipient.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                super.focusGained(e);
+                if (recipient.getText().equals("exam@sv.com")) {
+                    recipient.setText("");
+                    recipient.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (recipient.getText().isEmpty()) {
+                    recipient.setForeground(Color.GRAY);
+                    recipient.setText("exam@sv.com");
+                }
+            }
+        });
+
+        CC.setText("exam1@sv.com;exam2@sv.com");
+        CC.setForeground(Color.GRAY);
+        CC.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                super.focusGained(e);
+                if (CC.getText().equals("exam1@sv.com;exam2@sv.com")) {
+                    CC.setText("");
+                    CC.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (CC.getText().isEmpty()) {
+                    CC.setForeground(Color.GRAY);
+                    CC.setText("exam1@sv.com;exam2@sv.com");
+                }
+            }
+        });
+
+        BCC.setText("exam1@sv.com;exam2@sv.com");
+        BCC.setForeground(Color.GRAY);
+        BCC.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                super.focusGained(e);
+                if (BCC.getText().equals("exam1@sv.com;exam2@sv.com")) {
+                    BCC.setText("");
+                    BCC.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if (BCC.getText().isEmpty()) {
+                    BCC.setForeground(Color.GRAY);
+                    BCC.setText("exam1@sv.com;exam2@sv.com");
+                }
             }
         });
     }
@@ -230,6 +296,8 @@ public class SendClient {
         public void actionPerformed(ActionEvent e) {
             try {
                 DefaultStyledDocument doc = (DefaultStyledDocument) getEditorDocument();
+                if(CC.getText().equals("exam1@sv.com;exam2@sv.com")) CC.setText("");
+                if(BCC.getText().equals("exam1@sv.com;exam2@sv.com")) BCC.setText("");
                 Email temp = new Email(username, recipient.getText(), CC.getText(), BCC.getText(), subject.getText(), doc);
                 if(file__!=null) {
                     temp.setNameAttchment(file__.getName());
@@ -247,6 +315,8 @@ public class SendClient {
                 BCC.setText("");
                 subject.setText("");
                 editor__.setText("");
+                file__=null;
+                detailFile.setText("");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             } catch (ClassNotFoundException classNotFoundException) {
@@ -300,4 +370,6 @@ public class SendClient {
             editor__.setDocument(doc);
         }
     }
+
+
 }

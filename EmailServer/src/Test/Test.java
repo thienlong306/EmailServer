@@ -2,7 +2,6 @@ package Test;
 
 import Enity.Email;
 import Enity.User;
-import Server.EmailServer;
 
 import java.io.*;
 import java.security.MessageDigest;
@@ -10,8 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class Test {
     private static ArrayList<User> list1=new ArrayList<>();
@@ -180,10 +178,14 @@ public class Test {
 //        temp.add("long1");
 //        System.out.println(temp.get(0));
 //        readUserData();
-     readUser();
-     for (int i=0;i<list1.size();i++)
-         System.out.println(list1.get(i).getUserName()+"-"+list1.get(i).getPassword());
+//     readUser();
+//     for (int i=0;i<list1.size();i++)
+//         System.out.println(list1.get(i).getUserName()+"-"+list1.get(i).getPassword());
 
+        String pattern ="^[\\w.+\\-]+@sv\\.com$";
+        String matcher ="long1asdas@sv.com";
+        System.out.println(Pattern.matches(pattern, matcher));
 
     }
+
 }
