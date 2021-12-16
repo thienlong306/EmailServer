@@ -178,13 +178,14 @@ public class Test {
 //        temp.add("long1");
 //        System.out.println(temp.get(0));
 //        readUserData();
-//     readUser();
-//     for (int i=0;i<list1.size();i++)
-//         System.out.println(list1.get(i).getUserName()+"-"+list1.get(i).getPassword());
+     readUser();
+        System.out.println(list1.contains("t@sv.com"));
+     for (int i=0;i<list1.size();i++)
+         System.out.println(list1.get(i).getUserName()+"-"+list1.get(i).getPassword());
 
-        String pattern ="^[\\w.+\\-]+@sv\\.com$";
-        String matcher ="long1asdas@sv.com";
-        System.out.println(Pattern.matches(pattern, matcher));
+//        String pattern ="^[\\w.+\\-]+@sv\\.com$";
+//        String matcher ="long1asdas@sv.com";
+//        System.out.println(Pattern.matches(pattern, matcher));
 
     }
 

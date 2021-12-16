@@ -34,10 +34,11 @@ public class SendClient {
     private JPanel panelSendEmail;
     private File file__=null;
     private JButton Schedule;
+    private JButton Reload;
 
     private static final String[] FONT_SIZES = {"Font Size", "12", "14", "16", "18", "20", "22", "24", "26", "28", "30"};
 
-    public SendClient(JComboBox fontSizeComboBox__, JButton Send,JButton Schedule, JButton Read, JButton boldButton, JButton italicButton, JButton color, JButton fileButton, JLabel detailFile, JTextPane editor__, JPanel panelSendEmail, JTextField recipient, JTextField CC, JTextField BCC, JTextField subject,JButton addImg) {
+    public SendClient(JComboBox fontSizeComboBox__, JButton Send,JButton Schedule, JButton Read, JButton boldButton, JButton italicButton, JButton color, JButton fileButton, JLabel detailFile, JTextPane editor__, JPanel panelSendEmail, JTextField recipient, JTextField CC, JTextField BCC, JTextField subject,JButton addImg,JButton Reload) {
         this.fontSizeComboBox__ = fontSizeComboBox__;
         this.Send = Send;
         this.Read = Read;
@@ -54,6 +55,7 @@ public class SendClient {
         this.subject = subject;
         this.addImg=addImg;
         this.Schedule=Schedule;
+        this.Reload=Reload;
     }
 
     public void SetSendClient() {
@@ -101,6 +103,18 @@ public class SendClient {
                 ScheduleClient SC= new ScheduleClient();
                 SC.setEmail(temp1);
                 SC.setVisible(true);
+            }
+        });
+        Reload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                recipient.setText("");
+                CC.setText("");
+                BCC.setText("");
+                subject.setText("");
+                editor__.setText("");
+                file__=null;
+                detailFile.setText("");
             }
         });
 
@@ -310,13 +324,6 @@ public class SendClient {
                 Object o = ois.readObject();
                 JOptionPane.showMessageDialog(panelSendEmail,(String)o);
                 oos.flush();
-                recipient.setText("");
-                CC.setText("");
-                BCC.setText("");
-                subject.setText("");
-                editor__.setText("");
-                file__=null;
-                detailFile.setText("");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             } catch (ClassNotFoundException classNotFoundException) {
@@ -333,6 +340,7 @@ public class SendClient {
             }
         }
     }
+
 
     private class OpenFileListener implements ActionListener {
         @Override

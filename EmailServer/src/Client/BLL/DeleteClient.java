@@ -113,6 +113,9 @@ public class DeleteClient {
         });
     }
     public void reload(){
+        readButton.setEnabled(false);
+        replyButton.setEnabled(false);
+        deleteButton.setEnabled(false);
         for( int i = model.getRowCount() - 1; i >= 0; i-- )
         {
             model.removeRow(i);

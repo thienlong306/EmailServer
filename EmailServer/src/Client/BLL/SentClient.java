@@ -95,6 +95,7 @@ public class SentClient {
             public void actionPerformed(ActionEvent e) {
                 recipient.setForeground(Color.BLACK);
                 CC.setForeground(Color.BLACK);
+                BCC.setForeground(Color.BLACK);
                 recipient.setText(listEmailSent.get(inbox.getSelectedRow()).getRecipient());
                 CC.setText(listEmailSent.get(inbox.getSelectedRow()).getCC());
                 BCC.setText(listEmailSent.get(inbox.getSelectedRow()).getBCC());
@@ -128,6 +129,10 @@ reload();
         });
     }
     public void reload(){
+        readButton.setEnabled(false);
+        replyButton.setEnabled(false);
+        replyAllButton.setEnabled(false);
+        deleteButton.setEnabled(false);
         for( int i = model.getRowCount() - 1; i >= 0; i-- )
         {
             model.removeRow(i);

@@ -120,6 +120,9 @@ public class InboxClient {
         });
     }
     public void reload(){
+        readButton.setEnabled(false);
+        spamButton.setEnabled(false);
+        deleteButton.setEnabled(false);
         for( int i = model.getRowCount() - 1; i >= 0; i-- )
         {
             model.removeRow(i);
