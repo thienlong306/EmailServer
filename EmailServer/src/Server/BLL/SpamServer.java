@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import static Server.BLL.HandlerClient.objectIn;
+import static Server.EmailServer.listUser;
 
 public class SpamServer {
     public static Socket client;
@@ -39,11 +40,29 @@ public class SpamServer {
         }
 
         o=objectIn.readObject();
+
+        ArrayList<String> tmp=new ArrayList<>();
+        int index=-1;
+        for (int i=0;i<listUser.size();i++){
+            if(listUser.get(i).getUserName().equals(username)){
+                tmp=listUser.get(i).getListSpam();
+                index=i;
+                break;
+            }
+        }
+        if (tmp.contains((String) o)){
+            tmp.remove((String) o);
+        }else {
+            tmp.add((String) o);
+        }
+        System.out.println(tmp);
+        listUser.get(index).ListSpam(tmp);
+
         for (int i=0;i<listEmail.size();i++){
             if(listEmail.get(i).getSender().equals((String) o)){
                 if(listEmail.get(i).getStatus().equals("Spam")){
                     listEmail.get(i).setStatus("Read");
-                }else
+                }else if(listEmail.get(i).getStatus().equals("Read")||listEmail.get(i).getStatus().equals("Recip"))
                 {
                     listEmail.get(i).setStatus("Spam");
                 }

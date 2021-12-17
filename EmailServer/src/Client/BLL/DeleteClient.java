@@ -142,7 +142,7 @@ public class DeleteClient {
                 }
             }
         } catch (IOException | ClassNotFoundException | BadLocationException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(tabedPane,"Mất kết nối máy chủ");
         }
     }
 }

@@ -38,10 +38,14 @@ public class SignUp extends JFrame {
         đăngKýButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AddUserClient check = new AddUserClient();
-                if (check.AddUserClient(textField1.getText(), passwordField1.getText()))
-                    JOptionPane.showMessageDialog(panelSignUp, "Thành Công");
-                else JOptionPane.showMessageDialog(panelSignUp, "Lỗi");
+                try {
+                    AddUserClient check = new AddUserClient();
+                    if (check.AddUserClient(textField1.getText(), passwordField1.getText()))
+                        JOptionPane.showMessageDialog(panelSignUp, "Thành Công");
+                    else JOptionPane.showMessageDialog(panelSignUp, "Lỗi");
+                } catch (NullPointerException ex) {
+                    JOptionPane.showMessageDialog(panelSignUp,"Mất kết nối máy chủ");
+                }
             }
         });
 

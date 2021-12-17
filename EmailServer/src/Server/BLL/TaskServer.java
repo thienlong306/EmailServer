@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimerTask;
 
+import static Server.EmailServer.listUser;
+
 public class TaskServer extends TimerTask {
     private Object o;
     public TaskServer(Object o){
@@ -50,6 +52,17 @@ public class TaskServer extends TimerTask {
     }
     public static void syn(Object o,String username) throws IOException, ClassNotFoundException {
         ArrayList<Email> listEmail = new ArrayList<>();
+
+        String checkSpam=((Email)o).getSender();
+        ArrayList<String> tmp=new ArrayList<>();
+        for (int i=0;i<listUser.size();i++){
+            if(listUser.get(i).getUserName().equals(username)){
+                tmp=listUser.get(i).getListSpam();
+                break;
+            }
+        }
+        if (tmp.contains(checkSpam)) ((Email)o).setStatus("Spam");
+
         File file = new File("src/Data/"+username+".dat");
         if(file.length()!=0){
             FileInputStream fis = new FileInputStream(file);

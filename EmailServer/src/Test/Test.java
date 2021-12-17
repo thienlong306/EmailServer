@@ -89,7 +89,7 @@ public class Test {
         System.out.println(list1.equals(list2));
     }
     public static void readEmail() throws IOException, ClassNotFoundException {
-        FileInputStream fis=new FileInputStream("src/Data/long2.dat");
+        FileInputStream fis=new FileInputStream("src/Data/t1@sv.com.dat");
         fileIn = new ObjectInputStream(fis);
         while (fis.available()!=0) {
             Object o = fileIn.readObject();
@@ -179,10 +179,17 @@ public class Test {
 //        System.out.println(temp.get(0));
 //        readUserData();
      readUser();
-        System.out.println(list1.contains("t@sv.com"));
-     for (int i=0;i<list1.size();i++)
-         System.out.println(list1.get(i).getUserName()+"-"+list1.get(i).getPassword());
-
+        System.out.println(list1.get(0).getListSpam());
+//        System.out.println(list1.contains("t@sv.com"));
+//     for (int i=0;i<list1.size();i++)
+//         System.out.println(list1.get(i).getUserName()+"-"+list1.get(i).getPassword());
+//        ArrayList<String> test=new ArrayList<>();
+//        test.add("1");
+//        test.add("2");
+//        test.add("3");
+//
+//        System.out.println(test.remove("1"));
+//        System.out.println(test);
 //        String pattern ="^[\\w.+\\-]+@sv\\.com$";
 //        String matcher ="long1asdas@sv.com";
 //        System.out.println(Pattern.matches(pattern, matcher));

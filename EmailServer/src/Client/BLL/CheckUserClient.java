@@ -24,9 +24,9 @@ public class CheckUserClient {
             oos.flush();
             return (String) o;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
         return (String) o;
     }

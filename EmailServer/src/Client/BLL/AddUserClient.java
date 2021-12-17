@@ -26,7 +26,7 @@ public class AddUserClient {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
         return false;
     }

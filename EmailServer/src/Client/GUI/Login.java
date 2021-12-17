@@ -29,15 +29,19 @@ public class Login extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CheckUserClient check = new CheckUserClient();
-                String result = String.valueOf(check.CheckUserClient(textFieldUser.getText(), textFieldPass.getText()));
-                if (result.equals("ok")) {
-                    username = textFieldUser.getText();
-                    JOptionPane.showMessageDialog(panelLogin, "Thành Công");
-                    setVisible(false);
-                    new Main().setVisible(true);
-                } else if (result.equals("lock"))
-                    JOptionPane.showMessageDialog(panelLogin, "User bị khóa");
-                else JOptionPane.showMessageDialog(panelLogin, "Sai");
+                try {
+                    String result = String.valueOf(check.CheckUserClient(textFieldUser.getText(), textFieldPass.getText()));
+                    if (result.equals("ok")) {
+                        username = textFieldUser.getText();
+                        JOptionPane.showMessageDialog(panelLogin, "Thành Công");
+                        setVisible(false);
+                        new Main().setVisible(true);
+                    } else if (result.equals("lock"))
+                        JOptionPane.showMessageDialog(panelLogin, "User bị khóa");
+                    else JOptionPane.showMessageDialog(panelLogin, "Sai");
+                } catch (Exception ex) {
+                   JOptionPane.showMessageDialog(panelLogin,"Mất kết nối máy chủ");
+                }
             }
         });
         SignUp.addActionListener(new ActionListener() {

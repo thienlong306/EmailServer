@@ -325,9 +325,9 @@ public class SendClient {
                 JOptionPane.showMessageDialog(panelSendEmail,(String)o);
                 oos.flush();
             } catch (IOException ioException) {
-                ioException.printStackTrace();
+                JOptionPane.showMessageDialog(panelSendEmail,"Mất kết nối máy chủ");
             } catch (ClassNotFoundException classNotFoundException) {
-                classNotFoundException.printStackTrace();
+                JOptionPane.showMessageDialog(panelSendEmail,"Mất kết nối máy chủ");
             }
         }
 

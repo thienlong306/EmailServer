@@ -31,22 +31,26 @@ public class EmailClient {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Mất kết nối máy chủ");
         }
     }
 
-    public static void main(String[] args) throws UnsupportedLookAndFeelException {
-        Connect();
-        UIManager.put("TextPane.font",
-                new Font(DEFAULT_FONT_FAMILY, Font.PLAIN, DEFAULT_FONT_SIZE));
-        UIManager.setLookAndFeel(new NimbusLookAndFeel());
+    public static void main(String[] args)  {
+       try {
+           Connect();
+           UIManager.put("TextPane.font",
+                   new Font(DEFAULT_FONT_FAMILY, Font.PLAIN, DEFAULT_FONT_SIZE));
+           UIManager.setLookAndFeel(new NimbusLookAndFeel());
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
+           SwingUtilities.invokeLater(new Runnable() {
+               @Override
+               public void run() {
+                   new Login().setVisible(true);
+               }
+           });
+       } catch (UnsupportedLookAndFeelException e) {
+           System.out.println(e);
+       }
     }
 
 }
