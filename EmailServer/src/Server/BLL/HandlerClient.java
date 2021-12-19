@@ -1,5 +1,6 @@
 package Server.BLL;
 
+import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,16 +12,18 @@ public class HandlerClient   extends Thread {
     public static ObjectInputStream objectIn;
     public static ObjectOutputStream objectOut;
     public static String usermain;
+    public static SecretKey key;
+    public static GenerateKeys sv;
     //DECLARE CLASS CONSTRUCTOR
     public HandlerClient(Socket socket) {
         //GET SOCKET REFERENCE FROM SERVER
         client = socket;
     }
-
     //MULTITHREADED METHOD DEFINITION
     public synchronized void run() {
         System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Connection");
         try {
+            new CipherServer(client).CipherServer();
             do {
                 objectIn = new ObjectInputStream(client.getInputStream());
                 String option = (String) objectIn.readObject();

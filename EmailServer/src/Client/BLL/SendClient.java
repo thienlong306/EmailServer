@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.*;
 
+import static Client.BLL.CipherClient.encryptData;
 import static Client.EmailClient.link;
 import static Client.GUI.Login.username;
 import static Client.GUI.Main.ois;
@@ -94,6 +95,8 @@ public class SendClient {
             @Override
             public void actionPerformed(ActionEvent e) {
                 DefaultStyledDocument doc = (DefaultStyledDocument) getEditorDocument();
+                if(CC.getText().equals("exam1@sv.com;exam2@sv.com")) CC.setText("");
+                if(BCC.getText().equals("exam1@sv.com;exam2@sv.com")) BCC.setText("");
                 Email temp1 = new Email(username, recipient.getText(), CC.getText(), BCC.getText(), subject.getText(), doc);
                 if(file__!=null) {
                     temp1.setNameAttchment(file__.getName());
@@ -319,7 +322,8 @@ public class SendClient {
                 }
                 oos = new ObjectOutputStream(link.getOutputStream());
                 oos.writeObject("S");
-                oos.writeObject(temp);
+                Object crypt=encryptData(temp);
+                oos.writeObject(crypt);
                 ois = new ObjectInputStream(link.getInputStream());
                 Object o = ois.readObject();
                 JOptionPane.showMessageDialog(panelSendEmail,(String)o);

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import static Client.BLL.CipherClient.encryptData;
 import static Client.EmailClient.link;
 import static Client.GUI.Login.username;
 
@@ -86,7 +87,9 @@ public class Main extends JFrame {
                         try {
                             oos = new ObjectOutputStream(link.getOutputStream());
                             oos.writeObject("C");
-                            oos.writeObject("LG");
+                            String lg="LG";
+                            Object encry=encryptData(lg);
+                            oos.writeObject(encry);
                             ois = new ObjectInputStream(link.getInputStream());
                             Object o = ois.readObject();
                             JOptionPane.showMessageDialog(panelMain,"Logout");

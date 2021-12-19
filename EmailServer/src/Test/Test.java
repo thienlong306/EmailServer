@@ -177,9 +177,9 @@ public class Test {
 //        ArrayList<String> temp = new ArrayList<>();
 //        temp.add("long1");
 //        System.out.println(temp.get(0));
-//        readUserData();
-     readUser();
-        System.out.println(list1.get(0).getListSpam());
+        readUserData();
+//     readUser();
+//        System.out.println(list1.get(0).getListSpam());
 //        System.out.println(list1.contains("t@sv.com"));
 //     for (int i=0;i<list1.size();i++)
 //         System.out.println(list1.get(i).getUserName()+"-"+list1.get(i).getPassword());

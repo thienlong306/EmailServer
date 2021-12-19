@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimerTask;
 
+import static Server.BLL.SendServer.checkData;
 import static Server.EmailServer.listUser;
 
 public class TaskServer extends TimerTask {
@@ -18,34 +19,44 @@ public class TaskServer extends TimerTask {
 
     public void run() {
         try {
-            Object bcc=o;
-            ((Email)bcc).setStatus("Recip");
-            if(((Email)bcc).getBCC().contains(";")){
-                String listBcc[]=((Email)bcc).getBCC().split(";");
-                for(int i=0;i<listBcc.length;i++){
-                    syn(bcc,listBcc[i]);
+            String listBcc[];
+            String listCc[];
+            Object bcc = o;
+            ((Email) bcc).setStatus("Recip");
+            if (((Email) bcc).getBCC().contains(";")) {
+                listBcc = ((Email) o).getCC().split(";");
+                ((Email) bcc).setBCC("Bạn");
+                for (int i = 0; i < listBcc.length; i++) {
+                    if (checkData(listBcc[i]))
+                        syn(bcc, listBcc[i]);
                 }
-            }else if(!((Email)bcc).getBCC().equals("")){
-                syn(bcc,((Email)bcc).getBCC());
+            } else if (!((Email) bcc).getBCC().equals("")) {
+                if (checkData(((Email) bcc).getBCC())) {
+                    String tmp = ((Email) bcc).getBCC();
+                    ((Email) bcc).setBCC("Bạn");
+                    syn(bcc, tmp);
+                }
             }
 
-            Object recip=o;
-            ((Email)recip).setStatus("Recip");
-            ((Email)recip).setBCC("");
-            syn(recip,((Email)recip).getRecipient());
+            Object recip = o;
+            ((Email) recip).setStatus("Recip");
+            ((Email) recip).setBCC("");
+            if (checkData(((Email) recip).getRecipient()))
+                syn(recip, ((Email) recip).getRecipient());
 
-            Object cc=o;
-            ((Email)cc).setStatus("Recip");
-            ((Email)cc).setBCC("");
-            if(((Email)cc).getCC().contains(";")){
-                String listCc[] = ((Email)cc).getCC().split(";");
-                for(int i=0;i< listCc.length;i++){
-                    syn(cc,listCc[i]);
+            Object cc = o;
+            ((Email) cc).setStatus("Recip");
+            ((Email) cc).setBCC("");
+            if (((Email) cc).getCC().contains(";")) {
+                listCc = ((Email) cc).getCC().split(";");
+                for (int i = 0; i < listCc.length; i++) {
+                    if (checkData(listCc[i]))
+                        syn(cc, listCc[i]);
                 }
-            }else if(!((Email)cc).getCC().equals("")){
-                syn(cc,((Email)cc).getCC());
+            } else if (!((Email) cc).getCC().equals("")) {
+                if (checkData(((Email) cc).getCC()))
+                    syn(cc, ((Email) cc).getCC());
             }
-
         } catch (Exception ex) {
             System.out.println("error running thread " + ex.getMessage());
         }

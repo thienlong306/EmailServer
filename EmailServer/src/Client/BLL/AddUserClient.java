@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import static Client.BLL.CipherClient.encryptData;
 import static Client.EmailClient.link;
 
 public class AddUserClient {
@@ -15,9 +16,10 @@ public class AddUserClient {
         try {
             pass = getMD5(pass);
             User u = new User(user, pass);
+            Object encry=encryptData(u);
             ObjectOutputStream oos = new ObjectOutputStream(link.getOutputStream());
             oos.writeObject("A");
-            oos.writeObject(u);
+            oos.writeObject(encry);
             ObjectInputStream ois = new ObjectInputStream(link.getInputStream());
             Object o = ois.readObject();
             System.out.println();

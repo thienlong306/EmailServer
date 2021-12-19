@@ -1,5 +1,6 @@
 package Client;
 
+import Client.BLL.CipherClient;
 import Client.GUI.Login;
 import Enity.User;
 
@@ -12,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.security.PublicKey;
 
 public class EmailClient {
     public static InetAddress host;
@@ -20,7 +22,6 @@ public class EmailClient {
     public static User user;
     public static ObjectInputStream objectIn;
     public static ObjectOutputStream objectOut;
-
     private static final String DEFAULT_FONT_FAMILY = "SansSerif";
     private static final int DEFAULT_FONT_SIZE = 16;
 
@@ -38,6 +39,7 @@ public class EmailClient {
     public static void main(String[] args)  {
        try {
            Connect();
+           new CipherClient().CipherClient();
            UIManager.put("TextPane.font",
                    new Font(DEFAULT_FONT_FAMILY, Font.PLAIN, DEFAULT_FONT_SIZE));
            UIManager.setLookAndFeel(new NimbusLookAndFeel());

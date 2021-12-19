@@ -18,6 +18,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import static Client.BLL.CipherClient.encryptData;
 import static Client.EmailClient.link;
 import static Client.EmailClient.user;
 import static Client.GUI.Login.username;
@@ -128,7 +129,9 @@ public class DeleteClient {
         try {
             oos = new ObjectOutputStream(link.getOutputStream());
             oos.writeObject("L");
-            oos.writeObject(username);
+            Object encryt=encryptData(username);
+            oos.writeObject(encryt);
+//            oos.writeObject(username);
             ois = new ObjectInputStream(link.getInputStream());
             listEmail = (ArrayList<Email>) ois.readObject();
             int count=0;

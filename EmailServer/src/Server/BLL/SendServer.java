@@ -4,10 +4,12 @@ import Enity.Email;
 import Enity.User;
 import Server.EmailServer;
 
+import javax.swing.text.BadLocationException;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import static Server.BLL.CipherServer.decryptData;
 import static Server.BLL.HandlerClient.objectIn;
 import static Server.EmailServer.listUser;
 
@@ -20,12 +22,14 @@ public class SendServer {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
             Object o = objectIn.readObject();
+            o=decryptData(o);
             String check="not ok";
+            String checkContent="ok";
             String username="Tài khoản người nhận không đủ dung lượng: ";
             String checkuser="Tài khoản không hợp lệ: ";
             Object sent=o;
 
-            System.out.println(checkUser(((Email)sent).getRecipient()));
+//            System.out.println(checkUser(((Email)sent).getRecipient()));
             if(!checkUser(((Email)sent).getRecipient())) checkuser+=((Email)sent).getRecipient()+",";
             String listCheck[];
             if(((Email) sent).getBCC().contains(";")){
@@ -42,8 +46,40 @@ public class SendServer {
             }}else if(!((Email) sent).getCC().equals("")) {
                 if(!checkUser(((Email)sent).getCC())) checkuser+=((Email)sent).getCC()+",";
             }
+            try {
+                if (((Email)o).getSubject().equals("")||((Email)o).getContent().getText(0,((Email)o).getContent().getLength()).equals("")){
+                    checkContent="Lỗi";
+                }
+            } catch (BadLocationException e) {
+                e.printStackTrace();
+            }
 
-            if(checkuser.equals("Tài khoản không hợp lệ: ")) {
+            String listBcc[];
+            String listCc[];
+            if (!checkData(((Email) o).getRecipient()))
+                username += ((Email) o).getRecipient() + " ";
+            if (((Email) o).getBCC().contains(";")) {
+                listBcc = ((Email) o).getBCC().split(";");
+                for (int i = 0; i < listBcc.length; i++) {
+                    if (!checkData(listBcc[i]))
+                        username += listBcc[i] + " ";
+                }
+            } else if (!((Email) o).getBCC().equals("")) {
+                if (!checkData(((Email) o).getBCC()))
+                    username += ((Email) o).getBCC() + " ";
+            }
+            if (((Email) o).getCC().contains(";")) {
+                listCc = ((Email) o).getCC().split(";");
+                for (int i = 0; i < listCc.length; i++) {
+                    if (!checkData(listCc[i]))
+                       username += listCc[i] + " ";
+                }
+            } else if (!((Email) o).getCC().equals("")) {
+                if (!checkData(((Email) o).getCC()))
+                    username += ((Email) o).getCC() + " ";
+            }
+
+            if(checkuser.equals("Tài khoản không hợp lệ: ")&&checkContent.equals("ok")&&username.equals("Tài khoản người nhận không đủ dung lượng: ")){
                 if (checkData(((Email) sent).getSender())) {
                     check = "ok";
                     syn(sent, ((Email) sent).getSender());
@@ -51,19 +87,18 @@ public class SendServer {
                     Object bcc = o;
                     ((Email) bcc).setStatus("Recip");
                     if (((Email) bcc).getBCC().contains(";")) {
-                        String listBcc[] = ((Email) bcc).getBCC().split(";");
+                        listBcc = ((Email) o).getCC().split(";");
                         ((Email) bcc).setBCC("Bạn");
                         for (int i = 0; i < listBcc.length; i++) {
                             if (checkData(listBcc[i]))
                                 syn(bcc, listBcc[i]);
-                            else username += listBcc[i] + " ";
                         }
                     } else if (!((Email) bcc).getBCC().equals("")) {
                         if (checkData(((Email) bcc).getBCC())) {
                             String tmp = ((Email) bcc).getBCC();
                             ((Email) bcc).setBCC("Bạn");
                             syn(bcc, tmp);
-                        } else username += ((Email) bcc).getBCC() + " ";
+                        }
                     }
 
                     Object recip = o;
@@ -71,26 +106,24 @@ public class SendServer {
                     ((Email) recip).setBCC("");
                     if (checkData(((Email) recip).getRecipient()))
                         syn(recip, ((Email) recip).getRecipient());
-                    else username += ((Email) recip).getRecipient() + " ";
 
                     Object cc = o;
                     ((Email) cc).setStatus("Recip");
                     ((Email) cc).setBCC("");
                     if (((Email) cc).getCC().contains(";")) {
-                        String listCc[] = ((Email) cc).getCC().split(";");
+                         listCc = ((Email) cc).getCC().split(";");
                         for (int i = 0; i < listCc.length; i++) {
                             if (checkData(listCc[i]))
                                 syn(cc, listCc[i]);
-                            else username += listCc[i] + " ";
                         }
                     } else if (!((Email) cc).getCC().equals("")) {
                         if (checkData(((Email) cc).getCC()))
                             syn(cc, ((Email) cc).getCC());
-                        else username += ((Email) cc).getCC() + " ";
                     }
                 } else check = "Bạn không đủ dung lượng";
             }
-            if(!checkuser.equals("Tài khoản không hợp lệ: ")) oos.writeObject(checkuser);
+            if(checkContent.equals("Lỗi")) oos.writeObject(checkContent);
+            else if(!checkuser.equals("Tài khoản không hợp lệ: ")) oos.writeObject(checkuser);
             else if (username.equals("Tài khoản người nhận không đủ dung lượng: "))
             oos.writeObject(check);
             else oos.writeObject(username);

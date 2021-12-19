@@ -25,6 +25,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import static Client.BLL.CipherClient.encryptData;
 import static Client.EmailClient.link;
 import static Client.GUI.Login.username;
 import static Client.GUI.Main.ois;
@@ -105,7 +106,9 @@ public class ScheduleClient extends JFrame {
              try {
                  oos = new ObjectOutputStream(link.getOutputStream());
                  oos.writeObject("SC");
-                 oos.writeObject(email);
+                 Object encryt=encryptData(email);
+                 oos.writeObject(encryt);
+//                 oos.writeObject(email);
                  oos.writeObject(calendar);
                  ois = new ObjectInputStream(link.getInputStream());
                  Object o = ois.readObject();

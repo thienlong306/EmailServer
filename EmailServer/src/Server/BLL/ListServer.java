@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import static Server.BLL.CipherServer.decryptData;
 import static Server.BLL.HandlerClient.objectIn;
 
 public class ListServer {
@@ -19,6 +20,7 @@ public class ListServer {
     public static void ListServer() throws IOException {
         try {
             Object o = objectIn.readObject();
+            o=decryptData(o);
             oos = new ObjectOutputStream(client.getOutputStream());
             FileInputStream fis = new FileInputStream("src/Data/"+(String)o+".dat");
             ObjectInputStream fileIn = new ObjectInputStream(fis);

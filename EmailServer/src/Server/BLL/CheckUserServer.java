@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import static Server.BLL.CipherServer.decryptData;
 import static Server.BLL.HandlerClient.objectIn;
 import static Server.BLL.HandlerClient.usermain;
 import static Server.EmailServer.listUser;
@@ -19,6 +20,7 @@ public class CheckUserServer {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
             Object o = objectIn.readObject();
+            o=decryptData(o);
             String checkLogin = "Error";
             if (o.equals("LG")){
                 System.out.println(usermain+" Logout");

@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import static Server.BLL.CipherServer.decryptData;
 import static Server.BLL.HandlerClient.objectIn;
 
 public class AddUserServer {
@@ -23,8 +24,8 @@ public class AddUserServer {
             ArrayList<User> listUser = EmailServer.getAllUser();
             ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
             Object o = objectIn.readObject();
+            o=decryptData(o);
             String addUser = "ok";
-
             String pattern ="^[\\w.+\\-]+@sv\\.com$";
             String matcher = ((User)o).getUserName();
             if(!Pattern.matches(pattern, matcher))
