@@ -33,6 +33,7 @@ public class EmailClient {
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Mất kết nối máy chủ");
+            JOptionPane.showMessageDialog(null,"Mất kết nối máy chủ");
         }
     }
 
@@ -50,6 +51,7 @@ public class EmailClient {
                    new Login().setVisible(true);
                }
            });
+
        } catch (UnsupportedLookAndFeelException e) {
            System.out.println(e);
        }

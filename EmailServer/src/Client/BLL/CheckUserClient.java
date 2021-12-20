@@ -2,6 +2,7 @@ package Client.BLL;
 
 import Enity.User;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -27,9 +28,9 @@ public class CheckUserClient {
             oos.flush();
             return (String) o;
         } catch (IOException e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null,"Mất kết nối máy chủ");
         } catch (ClassNotFoundException e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null,"Mất kết nối máy chủ");
         }
         return (String) o;
     }

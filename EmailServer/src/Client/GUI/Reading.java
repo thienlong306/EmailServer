@@ -1,10 +1,14 @@
 package Client.GUI;
 
+import Client.BLL.ViewAttachmentClient;
+
 import javax.swing.*;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 
 public class Reading extends JFrame {
@@ -17,8 +21,9 @@ public class Reading extends JFrame {
     private JTextPane editor__;
     private JLabel statusUser;
     private JButton saveFileButton;
+    private JButton openFileButton;
     private byte[] attachment;
-
+    private File file;
     public void setReading(String sent, String CC, String BCC, String subject, StyledDocument editor__, String detailFile, byte[] attachment) {
         this.sent.setText(sent);
         this.CC.setText(CC);
@@ -27,7 +32,11 @@ public class Reading extends JFrame {
         this.editor__.setDocument(editor__);
         this.detailFile.setText(detailFile);
         this.attachment = attachment;
-        if(detailFile!=null) saveFileButton.setEnabled(true);
+        if(detailFile!=null) {
+            saveFileButton.setEnabled(true);
+            openFileButton.setEnabled(true);
+        }
+
     }
 
     public void setStatusUser(String text) {
@@ -74,6 +83,47 @@ public class Reading extends JFrame {
                 }
             }
         });
+        openFileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name=detailFile.getText();
+                name = name.toLowerCase();
+                if(name.endsWith(".txt"))
+                {
+                    //CREATE NEW VIEW TEXT ATTACHMENT GUI
+                    ViewAttachmentClient vac=new ViewAttachmentClient();
+                    vac.ViewTextAttachment(attachment,detailFile.getText());
+                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                    final int HEIGHT = 600;
+                    final int WIDTH = 600;
+                    vac.setBounds(((screenSize.width / 2) - (WIDTH / 2)),
+                            ((screenSize.height / 2) - (HEIGHT / 2)), WIDTH, HEIGHT);
+                    vac.setVisible(true);
+                }
+                else if(name.endsWith(".gif") || name.endsWith(".jpg") || name.endsWith(".jpeg")|| name.endsWith(".png"))
+                {
+                    //CREATE NEW GRAPHICS ATTACHMENT GUI
+                    ViewAttachmentClient vac=new ViewAttachmentClient();
+                    vac.ViewGraphicsAttachment(attachment);
+                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                    final int HEIGHT = 800;
+                    final int WIDTH = 800;
+                    vac.setBounds(((screenSize.width / 2) - (WIDTH / 2)),
+                            ((screenSize.height / 2) - (HEIGHT / 2)), WIDTH, HEIGHT);
+                    vac.setVisible(true);
+                }
+                else if(name.endsWith(".mov") || name.endsWith(".au") || name.endsWith(".mpeg") || name.endsWith(".mpg")|| name.endsWith(".mp4"))
+                {
+                    //CREATE NEW MEDIA ATTACHMENT GUI
+                    ViewAttachmentClient vac=new ViewAttachmentClient();
+                    vac.ViewMediaAttachment(attachment,detailFile.getText());
+                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                } else {
+                    JOptionPane.showMessageDialog(Read,"Không hỗ trợ file");
+                }
+            }
+        });
+
     }
 
     public void setEmail(int index) throws IOException, ClassNotFoundException {

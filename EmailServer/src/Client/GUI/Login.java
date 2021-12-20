@@ -40,8 +40,8 @@ public class Login extends JFrame {
                         JOptionPane.showMessageDialog(panelLogin, "User bị khóa");
                     else JOptionPane.showMessageDialog(panelLogin, "Sai");
                 } catch (Exception ex) {
-//                   JOptionPane.showMessageDialog(panelLogin,"Mất kết nối máy chủ");
-                   ex.printStackTrace();
+                   JOptionPane.showMessageDialog(panelLogin,"Mất kết nối máy chủ");
+//                   ex.printStackTrace();
                 }
             }
         });

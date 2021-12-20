@@ -23,6 +23,8 @@ public class CipherClient {
            encryptKeyAES();
        } catch (IOException e) {
            e.printStackTrace();
+       } catch (NullPointerException ex){
+
        }
     }
     public static void getKeyPublic() {

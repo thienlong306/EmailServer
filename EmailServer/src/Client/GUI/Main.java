@@ -105,9 +105,9 @@ public class Main extends JFrame {
                             Object o = ois.readObject();
                             JOptionPane.showMessageDialog(panelMain,"Logout");
                         } catch (IOException ioException) {
-                            ioException.printStackTrace();
+                            
                         } catch (ClassNotFoundException classNotFoundException) {
-                            classNotFoundException.printStackTrace();
+
                         }
                         new Login().setVisible(true);
                     }
