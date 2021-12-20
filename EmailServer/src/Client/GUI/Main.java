@@ -75,6 +75,17 @@ public class Main extends JFrame {
     private JButton replyAllButton2;
     private JPanel Info;
     private JButton làmMớiButton;
+    private JButton unDeleteButton;
+    private JButton underline;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JButton ChangePassButton;
+    private JTextField textField3;
+    private JLabel userData;
+    private JLabel Data;
+    private JPasswordField passwordField1;
+    private JPasswordField passwordField2;
+    private JPasswordField passwordField3;
 
     public static ObjectInputStream ois;
     public static ObjectOutputStream oos;
@@ -107,13 +118,11 @@ public class Main extends JFrame {
         setTitle(username);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         final int HEIGHT = 500;
-        final int WIDTH = 800;
+        final int WIDTH = 900;
         setBounds(((screenSize.width / 2) - (WIDTH / 2)),
                 ((screenSize.height / 2) - (HEIGHT / 2)), WIDTH, HEIGHT);
 
-        
-
-        SendClient sc = new SendClient(fontSizeComboBox__,SendEmail,scheduleButton,ReadEmail,boldButton,italicButton,color,fileButton,detailFile,editor__,Send,recipient,CC,BCC,subject,addImg,làmMớiButton);
+        SendClient sc = new SendClient(fontSizeComboBox__,SendEmail,scheduleButton,ReadEmail,boldButton,italicButton,color,fileButton,detailFile,editor__,Send,recipient,CC,BCC,subject,addImg,làmMớiButton,underline);
         sc.SetSendClient();
 
         InboxClient ic = new InboxClient(inbox, readButton,deleteButton,replyButton,spamButton,reloadButton,tabbeMain);
@@ -128,8 +137,11 @@ public class Main extends JFrame {
         SpamClient sp = new SpamClient(tableSpam, readButton3,deleteButton3,replyButton3,spamButton3,reloadButton3,tabbeMain,recipient,CC);
         sp.setSpamClient();
 
-        DeleteClient dc = new DeleteClient(tableDelete, readButton4,deleteButton4,replyButton4,reloadButton4,tabbeMain,recipient);
+        DeleteClient dc = new DeleteClient(tableDelete, readButton4,deleteButton4,replyButton4,reloadButton4,tabbeMain,recipient,unDeleteButton);
         dc.setDeleteClien();
+
+        InfoClient infoC=new InfoClient(Info,userData,Data,passwordField1,passwordField2,passwordField3,ChangePassButton);
+        infoC.setInfoClient();
 
         tabbeMain.addChangeListener(new ChangeListener() {
             @Override
@@ -149,7 +161,11 @@ public class Main extends JFrame {
                 if(tabbeMain.getSelectedIndex()==5){
                     dc.reload();
                 }
+                if(tabbeMain.getSelectedIndex()==6){
+                    infoC.reload();
+                }
             }
         });
+
     }
 }

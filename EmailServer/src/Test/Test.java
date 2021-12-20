@@ -171,13 +171,13 @@ public class Test {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 //        write();
 //        writeAdd();
-//        readEmail();
+        readEmail();
 //        check();
 //        setEmail();
 //        ArrayList<String> temp = new ArrayList<>();
 //        temp.add("long1");
 //        System.out.println(temp.get(0));
-        readUserData();
+//        readUserData();
 //     readUser();
 //        System.out.println(list1.get(0).getListSpam());
 //        System.out.println(list1.contains("t@sv.com"));

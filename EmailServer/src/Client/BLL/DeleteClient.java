@@ -33,12 +33,13 @@ public class DeleteClient {
     private JButton replyButton;
     private JButton spamButton;
     private JButton reloadButton;
+    private JButton unDelete;
     private JTextField recipient;
     private static DefaultTableModel model;
     public static ArrayList<Email> listEmail = new ArrayList<>();
     public static ArrayList<Email> listEmailDelete = new ArrayList<>();
 
-    public DeleteClient(JTable inbox, JButton readButton, JButton deleteButton, JButton replyButton, JButton reloadButton, JTabbedPane tabedPane,JTextField recipient) {
+    public DeleteClient(JTable inbox, JButton readButton, JButton deleteButton, JButton replyButton, JButton reloadButton, JTabbedPane tabedPane,JTextField recipient,JButton UnDelete) {
         this.inbox = inbox;
         this.readButton = readButton;
         this.deleteButton = deleteButton;
@@ -46,6 +47,7 @@ public class DeleteClient {
         this.reloadButton = reloadButton;
         this.tabedPane = tabedPane;
         this.recipient=recipient;
+        this.unDelete=UnDelete;
     }
 
     public void setDeleteClien() {
@@ -60,6 +62,7 @@ public class DeleteClient {
                 readButton.setEnabled(true);
                 replyButton.setEnabled(true);
                 deleteButton.setEnabled(true);
+                unDelete.setEnabled(true);
             }
         });
         readButton.addActionListener(new ActionListener() {
@@ -106,6 +109,25 @@ public class DeleteClient {
                 }
             }
         });
+        unDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (inbox.getSelectedRow() != -1) {
+                        int index = listEmail.indexOf(listEmailDelete.get(inbox.getSelectedRow()));
+                        ObjectOutputStream oos = new ObjectOutputStream(link.getOutputStream());
+                        oos.writeObject("D");
+                        oos.writeObject(username);
+                        oos.writeObject(index+"-UD");
+                        ObjectInputStream ois = new ObjectInputStream(link.getInputStream());
+                        String check = (String) ois.readObject();
+                        reload();
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
         reloadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,6 +139,7 @@ public class DeleteClient {
         readButton.setEnabled(false);
         replyButton.setEnabled(false);
         deleteButton.setEnabled(false);
+        unDelete.setEnabled(false);
         for( int i = model.getRowCount() - 1; i >= 0; i-- )
         {
             model.removeRow(i);
@@ -136,7 +159,7 @@ public class DeleteClient {
             listEmail = (ArrayList<Email>) ois.readObject();
             int count=0;
             for (int i = listEmail.size()-1; i >=0; i--) {
-                if (listEmail.get(i).getStatus().equals("Delete")) {
+                if (listEmail.get(i).getStatus().contains("Delete")) {
                     listEmailDelete.add(listEmail.get(i));
                     StyledDocument doc = (DefaultStyledDocument) listEmail.get(i).getContent();
                     Object[] data = {listEmail.get(i).getSender(),listEmail.get(i).getRecipient(), listEmail.get(i).getSubject(), doc.getText(0, doc.getLength()), listEmail.get(i).getNameAttchment(),listEmail.get(i).getDateTime()};

@@ -60,6 +60,10 @@ public class HandlerClient   extends Thread {
                         System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Delete");
                         new DeleteServer(client).DeleteServer();
                         break;
+                    case "Info":
+//                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Info");
+                        new InfoServer(client).InfoServer();
+                        break;
                     default:
                         System.out.println("Không xác định");
                 }

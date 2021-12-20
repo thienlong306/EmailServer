@@ -27,6 +27,7 @@ public class SendClient {
     private JButton boldButton;
     private JButton color;
     private JButton italicButton;
+    private JButton underline;
     private JComboBox<String> fontSizeComboBox__;
     private JButton fileButton;
     private JLabel detailFile;
@@ -39,7 +40,7 @@ public class SendClient {
 
     private static final String[] FONT_SIZES = {"Font Size", "12", "14", "16", "18", "20", "22", "24", "26", "28", "30"};
 
-    public SendClient(JComboBox fontSizeComboBox__, JButton Send,JButton Schedule, JButton Read, JButton boldButton, JButton italicButton, JButton color, JButton fileButton, JLabel detailFile, JTextPane editor__, JPanel panelSendEmail, JTextField recipient, JTextField CC, JTextField BCC, JTextField subject,JButton addImg,JButton Reload) {
+    public SendClient(JComboBox fontSizeComboBox__, JButton Send,JButton Schedule, JButton Read, JButton boldButton, JButton italicButton, JButton color, JButton fileButton, JLabel detailFile, JTextPane editor__, JPanel panelSendEmail, JTextField recipient, JTextField CC, JTextField BCC, JTextField subject,JButton addImg,JButton Reload,JButton underline) {
         this.fontSizeComboBox__ = fontSizeComboBox__;
         this.Send = Send;
         this.Read = Read;
@@ -57,6 +58,7 @@ public class SendClient {
         this.addImg=addImg;
         this.Schedule=Schedule;
         this.Reload=Reload;
+        this.underline=underline;
     }
 
     public void SetSendClient() {
@@ -81,6 +83,11 @@ public class SendClient {
         italicButton.setText("Italic");
         italicButton.addActionListener(editButtonActionListener);
 
+        underline.setAction(new StyledEditorKit.UnderlineAction());
+        underline.setHideActionText(true);
+        underline.setText("UnderLine");
+        underline.addActionListener(editButtonActionListener);
+        
         color.addActionListener(new ColorActionListener());
 
         fontSizeComboBox__.addItemListener(new FontSizeItemListener());
@@ -95,6 +102,7 @@ public class SendClient {
             @Override
             public void actionPerformed(ActionEvent e) {
                 DefaultStyledDocument doc = (DefaultStyledDocument) getEditorDocument();
+                if(recipient.getText().equals("exam@sv.com")) recipient.setText("");
                 if(CC.getText().equals("exam1@sv.com;exam2@sv.com")) CC.setText("");
                 if(BCC.getText().equals("exam1@sv.com;exam2@sv.com")) BCC.setText("");
                 Email temp1 = new Email(username, recipient.getText(), CC.getText(), BCC.getText(), subject.getText(), doc);
@@ -111,9 +119,12 @@ public class SendClient {
         Reload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                recipient.setText("");
-                CC.setText("");
-                BCC.setText("");
+                recipient.setText("exam@sv.com");
+                recipient.setForeground(Color.GRAY);
+                CC.setText("exam1@sv.com;exam2@sv.com");
+                CC.setForeground(Color.GRAY);
+                BCC.setText("exam1@sv.com;exam2@sv.com");
+                BCC.setForeground(Color.GRAY);
                 subject.setText("");
                 editor__.setText("");
                 file__=null;
@@ -131,8 +142,8 @@ public class SendClient {
             public void focusGained(FocusEvent e) {
                 super.focusGained(e);
                 if (recipient.getText().equals("exam@sv.com")) {
-                    recipient.setText("");
                     recipient.setForeground(Color.BLACK);
+                    recipient.setText("");
                 }
             }
 
@@ -153,8 +164,8 @@ public class SendClient {
             public void focusGained(FocusEvent e) {
                 super.focusGained(e);
                 if (CC.getText().equals("exam1@sv.com;exam2@sv.com")) {
-                    CC.setText("");
                     CC.setForeground(Color.BLACK);
+                    CC.setText("");
                 }
             }
 
@@ -175,8 +186,8 @@ public class SendClient {
             public void focusGained(FocusEvent e) {
                 super.focusGained(e);
                 if (BCC.getText().equals("exam1@sv.com;exam2@sv.com")) {
-                    BCC.setText("");
                     BCC.setForeground(Color.BLACK);
+                    BCC.setText("");
                 }
             }
 
@@ -313,6 +324,7 @@ public class SendClient {
         public void actionPerformed(ActionEvent e) {
             try {
                 DefaultStyledDocument doc = (DefaultStyledDocument) getEditorDocument();
+                if(recipient.getText().equals("exam@sv.com")) recipient.setText("");
                 if(CC.getText().equals("exam1@sv.com;exam2@sv.com")) CC.setText("");
                 if(BCC.getText().equals("exam1@sv.com;exam2@sv.com")) BCC.setText("");
                 Email temp = new Email(username, recipient.getText(), CC.getText(), BCC.getText(), subject.getText(), doc);
