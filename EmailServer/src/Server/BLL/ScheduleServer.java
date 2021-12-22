@@ -28,7 +28,7 @@ public class ScheduleServer {
         ArrayList<User> listUser = EmailServer.getAllUser();
         ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
         Object o = objectIn.readObject();
-        o=decryptData(o);
+        o=decryptData(o,client);
         Object email =o;
         Object sent=o;
         String check="not ok";

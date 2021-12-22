@@ -37,10 +37,11 @@ public class SendClient {
     private File file__=null;
     private JButton Schedule;
     private JButton Reload;
-
+    private JButton Draft;
+    private byte[] attachment;
     private static final String[] FONT_SIZES = {"Font Size", "12", "14", "16", "18", "20", "22", "24", "26", "28", "30"};
 
-    public SendClient(JComboBox fontSizeComboBox__, JButton Send,JButton Schedule, JButton Read, JButton boldButton, JButton italicButton, JButton color, JButton fileButton, JLabel detailFile, JTextPane editor__, JPanel panelSendEmail, JTextField recipient, JTextField CC, JTextField BCC, JTextField subject,JButton addImg,JButton Reload,JButton underline) {
+    public SendClient(JComboBox fontSizeComboBox__, JButton Send,JButton Schedule, JButton Read, JButton boldButton, JButton italicButton, JButton color, JButton fileButton, JLabel detailFile, JTextPane editor__, JPanel panelSendEmail, JTextField recipient, JTextField CC, JTextField BCC, JTextField subject,JButton addImg,JButton Reload,JButton underline,JButton Draft) {
         this.fontSizeComboBox__ = fontSizeComboBox__;
         this.Send = Send;
         this.Read = Read;
@@ -59,8 +60,16 @@ public class SendClient {
         this.Schedule=Schedule;
         this.Reload=Reload;
         this.underline=underline;
+        this.Draft=Draft;
     }
 
+    public SendClient() {
+
+    }
+
+    public void setFile(File file){
+        this.file__=file;
+    }
     public void SetSendClient() {
 //        add(panelSendEmail);
 //        setSize(700, 500);
@@ -75,17 +84,17 @@ public class SendClient {
 
         boldButton.setAction(new StyledEditorKit.BoldAction());
         boldButton.setHideActionText(true);
-        boldButton.setText("Bold");
+        boldButton.setText("In Đậm");
         boldButton.addActionListener(editButtonActionListener);
 
         italicButton.setAction(new StyledEditorKit.ItalicAction());
         italicButton.setHideActionText(true);
-        italicButton.setText("Italic");
+        italicButton.setText("In Nghiêng");
         italicButton.addActionListener(editButtonActionListener);
 
         underline.setAction(new StyledEditorKit.UnderlineAction());
         underline.setHideActionText(true);
-        underline.setText("UnderLine");
+        underline.setText("Gạch chân");
         underline.addActionListener(editButtonActionListener);
         
         color.addActionListener(new ColorActionListener());
@@ -129,6 +138,22 @@ public class SendClient {
                 editor__.setText("");
                 file__=null;
                 detailFile.setText("");
+            }
+        });
+        Draft.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DefaultStyledDocument doc = (DefaultStyledDocument) getEditorDocument();
+                if(recipient.getText().equals("exam@sv.com")) recipient.setText("");
+                if(CC.getText().equals("exam1@sv.com;exam2@sv.com")) CC.setText("");
+                if(BCC.getText().equals("exam1@sv.com;exam2@sv.com")) BCC.setText("");
+                Email temp = new Email(username, recipient.getText(), CC.getText(), BCC.getText(), subject.getText(), doc);
+                if(file__!=null) {
+                    temp.setNameAttchment(file__.getName());
+                    temp.setAttachment(file__);
+                }
+                new DraftsClient().addEmail(temp);
+                JOptionPane.showMessageDialog(panelSendEmail,"Lưu thành công");
             }
         });
 

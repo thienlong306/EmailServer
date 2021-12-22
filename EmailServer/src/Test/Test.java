@@ -97,13 +97,13 @@ public class Test {
         System.out.println(list1.equals(list2));
     }
     public static void readEmail() throws IOException, ClassNotFoundException {
-        FileInputStream fis=new FileInputStream("src/Data/t1@sv.com.dat");
+        FileInputStream fis=new FileInputStream("src/Data/BK.dat");
         fileIn = new ObjectInputStream(fis);
         while (fis.available()!=0) {
             Object o = fileIn.readObject();
             if(o instanceof Email){
                 Email temp = (Email) o;
-                System.out.println(temp.getSender() + "-" + temp.getStatus());
+                System.out.println(temp.getSender() + "-" + temp.getStatus()+"-"+temp.getDateTime());
             }
         }
     }

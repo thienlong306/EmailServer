@@ -17,7 +17,7 @@ import java.security.PublicKey;
 
 public class EmailClient {
     public static InetAddress host;
-    public static final int PORT = 1234;
+    public static final int PORT = 2233;
     public static Socket link;
     public static User user;
     public static ObjectInputStream objectIn;

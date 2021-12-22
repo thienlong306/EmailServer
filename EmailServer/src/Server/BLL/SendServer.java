@@ -22,7 +22,7 @@ public class SendServer {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
             Object o = objectIn.readObject();
-            o=decryptData(o);
+            o=decryptData(o,client);
             String check="not ok";
             String checkContent="ok";
             String username="Tài khoản người nhận không đủ dung lượng: ";

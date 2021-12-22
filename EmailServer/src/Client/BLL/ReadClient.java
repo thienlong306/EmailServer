@@ -34,7 +34,7 @@ public class ReadClient {
     private JTextField recipient;
     private JTextField CC;
     private static DefaultTableModel model;
-    public static ArrayList<Email> listEmail = new ArrayList<>();
+    private static ArrayList<Email> listEmail = new ArrayList<>();
     public static ArrayList<Email> listEmailRead = new ArrayList<>();
 
     public ReadClient(JTable inbox, JButton readButton, JButton deleteButton, JButton replyButton,JButton replyButtonAll, JButton spamButton, JButton reloadButton, JTabbedPane tabedPane,JTextField recipient,JTextField CC) {

@@ -45,7 +45,7 @@ public class CipherClient {
         try {
             //Tạo khóa AES
             myKey = new GenerateSymmetricKey(16, "AES");
-//            System.out.println("Mã AES: " + myKey.getKey());
+            System.out.println("Mã AES: " + myKey.getKey());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (NoSuchPaddingException e) {

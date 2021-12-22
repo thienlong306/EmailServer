@@ -8,6 +8,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -86,9 +87,17 @@ public class Main extends JFrame {
     private JPasswordField passwordField1;
     private JPasswordField passwordField2;
     private JPasswordField passwordField3;
+    private JButton drafts;
+    private JPanel Draft;
+    private JTable draftTable;
+    private JButton readDraft;
+    private JButton deleteDraft;
+    private JButton setEmail;
 
     public static ObjectInputStream ois;
     public static ObjectOutputStream oos;
+    private byte[] attachment;
+
     public Main() {
         addWindowListener(
                 new WindowAdapter()
@@ -117,12 +126,12 @@ public class Main extends JFrame {
         add(panelMain);
         setTitle(username);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        final int HEIGHT = 500;
-        final int WIDTH = 900;
+        final int HEIGHT = 700;
+        final int WIDTH = 1100;
         setBounds(((screenSize.width / 2) - (WIDTH / 2)),
                 ((screenSize.height / 2) - (HEIGHT / 2)), WIDTH, HEIGHT);
 
-        SendClient sc = new SendClient(fontSizeComboBox__,SendEmail,scheduleButton,ReadEmail,boldButton,italicButton,color,fileButton,detailFile,editor__,Send,recipient,CC,BCC,subject,addImg,làmMớiButton,underline);
+        SendClient sc = new SendClient(fontSizeComboBox__,SendEmail,scheduleButton,ReadEmail,boldButton,italicButton,color,fileButton,detailFile,editor__,Send,recipient,CC,BCC,subject,addImg,làmMớiButton,underline,drafts);
         sc.SetSendClient();
 
         InboxClient ic = new InboxClient(inbox, readButton,deleteButton,replyButton,spamButton,reloadButton,tabbeMain);
@@ -143,6 +152,9 @@ public class Main extends JFrame {
         InfoClient infoC=new InfoClient(Info,userData,Data,passwordField1,passwordField2,passwordField3,ChangePassButton);
         infoC.setInfoClient();
 
+        DraftsClient draftC=new DraftsClient(tabbeMain,Draft,draftTable,readDraft,deleteDraft,setEmail,recipient,CC,BCC,subject,editor__,detailFile,attachment);
+        draftC.setDraftClient();
+
         tabbeMain.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -162,6 +174,9 @@ public class Main extends JFrame {
                     dc.reload();
                 }
                 if(tabbeMain.getSelectedIndex()==6){
+                    draftC.reload();
+                }
+                if(tabbeMain.getSelectedIndex()==7){
                     infoC.reload();
                 }
             }

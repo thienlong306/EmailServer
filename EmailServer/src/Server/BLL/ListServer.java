@@ -20,7 +20,7 @@ public class ListServer {
     public static void ListServer() throws IOException {
         try {
             Object o = objectIn.readObject();
-            o=decryptData(o);
+            o=decryptData(o,client);
             oos = new ObjectOutputStream(client.getOutputStream());
             FileInputStream fis = new FileInputStream("src/Data/"+(String)o+".dat");
             ObjectInputStream fileIn = new ObjectInputStream(fis);

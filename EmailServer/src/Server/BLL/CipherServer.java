@@ -1,16 +1,23 @@
 package Server.BLL;
 
+import Enity.KeyUser;
+import com.sun.security.ntlm.Client;
+
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.math.BigInteger;
 import java.net.Socket;
 import java.security.*;
 import java.util.Base64;
 
 import static Server.BLL.HandlerClient.*;
+import static Server.EmailServer.listkey;
 
 public class CipherServer {
-    public static SecretKey key;
     public static Socket client;
 
     public CipherServer(Socket socket) {
@@ -52,7 +59,9 @@ public class CipherServer {
             c.init(Cipher.DECRYPT_MODE, sv.getPrivateKey());
             byte decryptOut[] = c.doFinal(Base64.getDecoder().decode((String) o));
             key = new SecretKeySpec(decryptOut, 0, decryptOut.length, "AES");
-//            System.out.println("Khóa sau khi giải mã: " + key);
+            KeyUser t = new KeyUser(client,key);
+            listkey.add(t);
+            System.out.println("Khóa sau khi giải mã: " + key);
             objectOut.writeObject("Get key AES success");
         } catch (NoSuchPaddingException e) {
             e.printStackTrace();
@@ -70,12 +79,16 @@ public class CipherServer {
             e.printStackTrace();
         }
     }
-    public static Object encryptData(Object o){
+    public static Object encryptData(Object o, Socket client1){
         SealedObject sealedObject = null;
         try {
             //Mã khóa Object
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, key);
+            for (int i=0;i<listkey.size();i++){
+                if(client1.equals(listkey.get(i).getClient())){
+                    cipher.init(Cipher.ENCRYPT_MODE, listkey.get(i).getKey());
+                }
+            }
             sealedObject = new SealedObject((Serializable) o, cipher);
 //            encrypt=Base64.getEncoder().encodeToString(cipher.doFinal((byte[]) o));
         } catch (NoSuchPaddingException e) {
@@ -91,7 +104,7 @@ public class CipherServer {
         }
         return sealedObject;
     }
-    public static Object decryptData(Object o)  {
+    public static Object decryptData(Object o, Socket client1)  {
         SealedObject sealedObject=null;
         Object tmp=null;
         Cipher cipher = null;
@@ -100,7 +113,11 @@ public class CipherServer {
 //            String encrypt=(String) in.readObject();
 //            System.out.println("encrypt: "+o);
             cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
-            cipher.init(Cipher.DECRYPT_MODE, key);
+            for (int i=0;i<listkey.size();i++){
+                if(client1.equals(listkey.get(i).getClient())){
+                    cipher.init(Cipher.DECRYPT_MODE, listkey.get(i).getKey());
+                }
+            }
             sealedObject = (SealedObject) o;
             tmp=sealedObject.getObject(cipher);
 //            tmp = new String(cipher.doFinal(Base64.getDecoder().decode((byte[]) o)));

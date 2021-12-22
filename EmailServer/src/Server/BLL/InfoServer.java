@@ -25,7 +25,7 @@ public class InfoServer {
             Object o = objectIn.readObject();
             if (o.equals("getInfo")){
                 o = objectIn.readObject();
-                o=decryptData(o);
+                o=decryptData(o,client);
                 oos = new ObjectOutputStream(client.getOutputStream());
                 File file=new File("src/Data/"+(String)o+".dat");
                 long data=file.length()/(1024*1024);
@@ -38,9 +38,9 @@ public class InfoServer {
             }else{
 //                System.out.println("Change pass");
                 o = objectIn.readObject();
-                String user= (String) decryptData(o);
+                String user= (String) decryptData(o,client);
                 o = objectIn.readObject();
-                o = decryptData(o);
+                o = decryptData(o,client);
                 String pass[]=((String) o).split("-");
                 oos = new ObjectOutputStream(client.getOutputStream());
                 System.out.println(pass[0]);

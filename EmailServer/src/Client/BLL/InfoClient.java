@@ -81,7 +81,7 @@ public class InfoClient {
             Object o = ois.readObject();
             detailtUser=((String)o).split("-");
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(Info,"Mất kết nối máy chủ");
         }
     }
     public static String getMD5(String input) {

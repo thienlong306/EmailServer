@@ -1,5 +1,6 @@
 package Server;
 
+import Enity.KeyUser;
 import Enity.User;
 import Server.BLL.HandlerClient;
 import Server.BLL.HandlerServer;
@@ -11,8 +12,9 @@ import java.util.ArrayList;
 
 public class EmailServer {
     private static ServerSocket servSocket;
-    private static final int PORT = 1234;
+    private static final int PORT = 2233;
     public static ArrayList<User> listUser = new ArrayList<>();
+    public static ArrayList<KeyUser> listkey=new ArrayList<>();
     private static ObjectInputStream fileIn;
     private static ObjectOutputStream fileOut;
 

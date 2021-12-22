@@ -102,7 +102,7 @@
                 </constraints>
                 <properties>
                   <enabled value="false"/>
-                  <text value="Save File"/>
+                  <text value="Lưu File"/>
                 </properties>
               </component>
               <component id="ec0b4" class="javax.swing.JButton" binding="openFileButton" default-binding="true">
@@ -111,7 +111,7 @@
                 </constraints>
                 <properties>
                   <enabled value="false"/>
-                  <text value="Open File"/>
+                  <text value="Mở File"/>
                 </properties>
               </component>
             </children>

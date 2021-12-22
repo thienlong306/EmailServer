@@ -20,7 +20,7 @@ public class CheckUserServer {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
             Object o = objectIn.readObject();
-            o=decryptData(o);
+            o=decryptData(o,client);
             String checkLogin = "Error";
             if (o.equals("LG")){
                 System.out.println(usermain+" Logout");

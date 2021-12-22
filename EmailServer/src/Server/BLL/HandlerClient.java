@@ -14,6 +14,7 @@ public class HandlerClient   extends Thread {
     public static String usermain;
     public static SecretKey key;
     public static GenerateKeys sv;
+    protected static int indexkey=-1;
     //DECLARE CLASS CONSTRUCTOR
     public HandlerClient(Socket socket) {
         //GET SOCKET REFERENCE FROM SERVER
