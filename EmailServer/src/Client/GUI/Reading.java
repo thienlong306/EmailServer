@@ -112,13 +112,7 @@ public class Reading extends JFrame {
                             ((screenSize.height / 2) - (HEIGHT / 2)), WIDTH, HEIGHT);
                     vac.setVisible(true);
                 }
-                else if(name.endsWith(".mov") || name.endsWith(".au") || name.endsWith(".mpeg") || name.endsWith(".mpg")|| name.endsWith(".mp4"))
-                {
-                    //CREATE NEW MEDIA ATTACHMENT GUI
-                    ViewAttachmentClient vac=new ViewAttachmentClient();
-                    vac.ViewMediaAttachment(attachment,detailFile.getText());
-                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                } else {
+                 else {
                     JOptionPane.showMessageDialog(Read,"Không hỗ trợ file");
                 }
             }

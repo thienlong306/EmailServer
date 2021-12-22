@@ -156,7 +156,27 @@ public class SendClient {
                 JOptionPane.showMessageDialog(panelSendEmail,"Lưu thành công");
             }
         });
-
+        recipient.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                recipient.setForeground(Color.BLACK);
+            }
+        });
+        CC.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                CC.setForeground(Color.BLACK);
+            }
+        });
+        BCC.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                BCC.setForeground(Color.BLACK);
+            }
+        });
     }
 
     private void PlaceHolder(){

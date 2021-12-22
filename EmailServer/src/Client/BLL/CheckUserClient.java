@@ -17,7 +17,7 @@ public class CheckUserClient {
         Object o = null;
         try {
             pass=getMD5(pass);
-            User u = new User(user, pass);
+            User u = new User(user, pass,null);
             Object encry=encryptData(u);
 //            System.out.println(encry);
             ObjectOutputStream oos = new ObjectOutputStream(link.getOutputStream());

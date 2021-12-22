@@ -34,15 +34,15 @@ public class HandlerClient   extends Thread {
                         new CheckUserServer(client).CheckUserServer();
                         break;
                     case "A":
-                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Add User");
+//                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Add User");
                         new AddUserServer(client).AddUserServer();
                         break;
                     case "S":
-                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Send");
+//                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Send");
                         new SendServer(client).SendServer();
                         break;
                     case "SC":
-                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Schedule");
+//                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Schedule");
                         new ScheduleServer(client).ScheduleServer();
                         break;
                     case "L":
@@ -50,15 +50,15 @@ public class HandlerClient   extends Thread {
                         new ListServer(client).ListServer();
                         break;
                     case "R":
-                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Read");
+//                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Read");
                         new ReadingServer(client).ReadingServer();
                         break;
                     case "SP":
-                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Spam");
+//                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Spam");
                         new SpamServer(client).SpamServer();
                         break;
                     case "D":
-                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Delete");
+//                        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Delete");
                         new DeleteServer(client).DeleteServer();
                         break;
                     case "Info":

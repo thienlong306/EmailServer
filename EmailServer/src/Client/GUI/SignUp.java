@@ -16,6 +16,7 @@ public class SignUp extends JFrame {
     private JButton đăngKýButton;
     private JPanel panelSignUp;
     private JButton Login;
+    private JTextField NameField2;
 
     public SignUp(){
         add(panelSignUp);
@@ -40,7 +41,7 @@ public class SignUp extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     AddUserClient check = new AddUserClient();
-                    if (check.AddUserClient(textField1.getText(), passwordField1.getText()))
+                    if (check.AddUserClient(textField1.getText(), passwordField1.getText(),NameField2.getText()))
                         JOptionPane.showMessageDialog(panelSignUp, "Thành Công");
                     else JOptionPane.showMessageDialog(panelSignUp, "Lỗi");
                 } catch (NullPointerException ex) {

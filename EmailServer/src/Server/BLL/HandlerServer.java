@@ -20,11 +20,11 @@ public class HandlerServer extends Thread {
     //MULTITHREADED METHOD DEFINITION
     public synchronized void run() {
         System.out.println("ServerHandler");
-        System.out.println("1. lock user");
-        System.out.println("2. unlock user");
-        System.out.println("3. setdata user data");
-        System.out.println("4. send user subject content");
-        System.out.println("5. send all subject content");
+        System.out.println("1. lock [user]");
+        System.out.println("2. unlock [user]");
+        System.out.println("3. setdata [user] [data]");
+        System.out.println("4. send [user] [subject] [content]");
+        System.out.println("5. send all [subject] [content]");
         do {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine().toLowerCase();

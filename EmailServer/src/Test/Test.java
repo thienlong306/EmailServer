@@ -58,7 +58,7 @@ public class Test {
     public static void write() throws IOException {
         fileOu = new ObjectOutputStream(new FileOutputStream("src/Data/User.dat"));
         String pass = getMD5("admin");
-        User u1 = new User("admin@sv.com",pass);
+        User u1 = new User("admin@sv.com",pass,"null");
         fileOu.writeObject(u1);
         fileOu.close();
 
@@ -66,8 +66,8 @@ public class Test {
 
     public static void writeAdd() throws IOException {
         ObjectOutput oos = new MyObjectOutputStream(new FileOutputStream("src/Data/Test.dat",true));
-        User u1 = new User("long3","123");
-        User u2 = new User("long4","123");
+        User u1 = new User("long3","123",null);
+        User u2 = new User("long4","123",null);
         oos.writeObject(u1);
         oos.writeObject(u2);
         oos.close();

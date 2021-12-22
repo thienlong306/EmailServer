@@ -93,6 +93,7 @@ public class Main extends JFrame {
     private JButton readDraft;
     private JButton deleteDraft;
     private JButton setEmail;
+    private JLabel hotenData;
 
     public static ObjectInputStream ois;
     public static ObjectOutputStream oos;
@@ -149,7 +150,7 @@ public class Main extends JFrame {
         DeleteClient dc = new DeleteClient(tableDelete, readButton4,deleteButton4,replyButton4,reloadButton4,tabbeMain,recipient,unDeleteButton);
         dc.setDeleteClien();
 
-        InfoClient infoC=new InfoClient(Info,userData,Data,passwordField1,passwordField2,passwordField3,ChangePassButton);
+        InfoClient infoC=new InfoClient(Info,userData,Data,passwordField1,passwordField2,passwordField3,ChangePassButton,hotenData);
         infoC.setInfoClient();
 
         DraftsClient draftC=new DraftsClient(tabbeMain,Draft,draftTable,readDraft,deleteDraft,setEmail,recipient,CC,BCC,subject,editor__,detailFile,attachment);
@@ -181,6 +182,7 @@ public class Main extends JFrame {
                 }
             }
         });
+
 
     }
 }

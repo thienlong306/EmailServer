@@ -24,7 +24,8 @@ public class InfoClient {
     private JPasswordField passwordField1;
     private JPasswordField passwordField2;
     private JPasswordField passwordField3;
-    public InfoClient(JPanel Info,JLabel userData, JLabel data, JPasswordField passwordField1,JPasswordField passwordField2, JPasswordField passwordField3,JButton ChangePassButton){
+    private JLabel hotenData;
+    public InfoClient(JPanel Info,JLabel userData, JLabel data, JPasswordField passwordField1,JPasswordField passwordField2, JPasswordField passwordField3,JButton ChangePassButton,JLabel hotenData){
         this.Info=Info;
         this.userData=userData;
         this.data=data;
@@ -32,12 +33,14 @@ public class InfoClient {
         this.passwordField2=passwordField2;
         this.passwordField3=passwordField3;
         this.ChangePassButton=ChangePassButton;
+        this.hotenData=hotenData;
     }
 
     public void setInfoClient() {
         getInfo();
         userData.setText(detailtUser[0]);
-        data.setText(detailtUser[1]);
+        hotenData.setText(detailtUser[1]);
+        data.setText(detailtUser[2]);
         ChangePassButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,7 +70,8 @@ public class InfoClient {
     public void reload(){
         getInfo();
         userData.setText(detailtUser[0]);
-        data.setText(detailtUser[1]);
+        hotenData.setText(detailtUser[1]);
+        data.setText(detailtUser[2]);
     }
     public void getInfo(){
         try {
@@ -80,6 +84,7 @@ public class InfoClient {
             ois = new ObjectInputStream(link.getInputStream());
             Object o = ois.readObject();
             detailtUser=((String)o).split("-");
+//            System.out.println(detailtUser[0]+detailtUser[1]+detailtUser[2]);
         } catch (IOException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(Info,"Mất kết nối máy chủ");
         }

@@ -61,7 +61,7 @@ public class CipherServer {
             key = new SecretKeySpec(decryptOut, 0, decryptOut.length, "AES");
             KeyUser t = new KeyUser(client,key);
             listkey.add(t);
-            System.out.println("Khóa sau khi giải mã: " + key);
+//            System.out.println("Khóa sau khi giải mã: " + key);
             objectOut.writeObject("Get key AES success");
         } catch (NoSuchPaddingException e) {
             e.printStackTrace();

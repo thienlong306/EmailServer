@@ -91,19 +91,19 @@ public class ScheduleClient extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                System.out.println(date+" "+ comboBox1.getItemAt(comboBox1.getSelectedIndex())+":" + comboBox2.getItemAt(comboBox2.getSelectedIndex()));
-                Calendar calendar = Calendar.getInstance();
-                String temp[] = date.split("-");
-                calendar.set(Calendar.DATE,Integer.parseInt(temp[0]));
-                calendar.set(Calendar.MONTH,Integer.parseInt(temp[1])-1);
-                calendar.set(Calendar.YEAR,Integer.parseInt(temp[2]));
-                int hour= Integer.parseInt(String.valueOf(comboBox1.getItemAt(comboBox1.getSelectedIndex())));
-                int minute= Integer.parseInt(String.valueOf(comboBox2.getItemAt(comboBox2.getSelectedIndex())));
-                calendar.set(Calendar.HOUR_OF_DAY, hour);
-                calendar.set(Calendar.MINUTE, minute);
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND, 0);
 
              try {
+                 Calendar calendar = Calendar.getInstance();
+                 String temp[] = date.split("-");
+                 calendar.set(Calendar.DATE,Integer.parseInt(temp[0]));
+                 calendar.set(Calendar.MONTH,Integer.parseInt(temp[1])-1);
+                 calendar.set(Calendar.YEAR,Integer.parseInt(temp[2]));
+                 int hour= Integer.parseInt(String.valueOf(comboBox1.getItemAt(comboBox1.getSelectedIndex())));
+                 int minute= Integer.parseInt(String.valueOf(comboBox2.getItemAt(comboBox2.getSelectedIndex())));
+                 calendar.set(Calendar.HOUR_OF_DAY, hour);
+                 calendar.set(Calendar.MINUTE, minute);
+                 calendar.set(Calendar.SECOND, 0);
+                 calendar.set(Calendar.MILLISECOND, 0);
                  oos = new ObjectOutputStream(link.getOutputStream());
                  oos.writeObject("SC");
                  Object encryt=encryptData(email);
@@ -118,6 +118,8 @@ public class ScheduleClient extends JFrame {
                  ioException.printStackTrace();
              } catch (ClassNotFoundException classNotFoundException) {
                  classNotFoundException.printStackTrace();
+             } catch (NullPointerException ex){
+                 JOptionPane.showMessageDialog(null,"Lỗi");
              }
             }
         });

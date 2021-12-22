@@ -8,7 +8,7 @@ import java.awt.event.WindowEvent;
 import java.io.*;
 
 
-public class ViewAttachmentClient extends JFrame {
+public class ViewAttachmentClient extends JFrame implements ControllerListener {
     //DECLARE FILEIN STREAM FOR GETTING STRING
     private static BufferedReader fileIn;
     //DECLARE COMPONENETS TO BE PLACED ON GUI
@@ -125,6 +125,10 @@ public class ViewAttachmentClient extends JFrame {
             pane = getContentPane();
             //CREATE MEDIA PLAYER AND CONTOL PANEL
             Desktop.getDesktop().open(new File(file.toURI()));
+            //CREATE MEDIA PLAYER AND CONTOL PANEL
+//            player = Manager.createPlayer(file.toURL());
+//            player.addControllerListener(this);
+//            player.start();
         }
         catch(FileNotFoundException fnfe)
         {
@@ -135,5 +139,25 @@ public class ViewAttachmentClient extends JFrame {
             e2.printStackTrace();
         }
     }
-
+    //SET UP CONTROLLER EVENT LISTENER FOR PLAYER
+    public void controllerUpdate(ControllerEvent e)
+    {
+        if (e instanceof RealizeCompleteEvent)
+        {
+            //CREATE PLAY WINDOW AND ADD TO PANE
+            Component visualComponent = player.getVisualComponent();
+            if(visualComponent != null)
+            {
+                pane.add(visualComponent, BorderLayout.CENTER);
+            }
+            //CREATE CONTROL PANEL AND ADD TO WINDOW
+            Component controlsComponent = player.getControlPanelComponent();
+            if(controlsComponent != null)
+            {
+                pane.add(controlsComponent, BorderLayout.SOUTH);
+            }
+            //SET UP LAYOUT
+            pane.doLayout();
+        }
+    }
 }

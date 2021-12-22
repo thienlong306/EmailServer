@@ -32,7 +32,7 @@ public class InfoServer {
                 String detailtUser="";
                 for (int i=0;i<listUser.size();i++){
                     if(listUser.get(i).getUserName().equals((String)o))
-                        detailtUser= listUser.get(i).getUserName() +"-"+data+"/"+listUser.get(i).getData()+" MB";
+                        detailtUser= listUser.get(i).getUserName() +"-"+listUser.get(i).getHotenUser()+"-"+data+"/"+listUser.get(i).getData()+" MB";
                 }
                 oos.writeObject(detailtUser);
             }else{
@@ -43,9 +43,6 @@ public class InfoServer {
                 o = decryptData(o,client);
                 String pass[]=((String) o).split("-");
                 oos = new ObjectOutputStream(client.getOutputStream());
-                System.out.println(pass[0]);
-                System.out.println(pass[1]);
-                System.out.println(pass[2]);
                 if(pass[0].equals("d41d8cd98f00b204e9800998ecf8427e")||pass[1].equals("d41d8cd98f00b204e9800998ecf8427e")||pass[2].equals("d41d8cd98f00b204e9800998ecf8427e"))
                     oos.writeObject("Ô nhập không được để trống");
                 else if (pass[1].equals(pass[2]))
