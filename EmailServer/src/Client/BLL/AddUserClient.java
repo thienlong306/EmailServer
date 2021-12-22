@@ -15,7 +15,7 @@ public class AddUserClient {
     public static boolean AddUserClient(String user, String pass,String name) {
         try {
             pass = getMD5(pass);
-            User u = new User(user, pass,name);
+            User u = new User(user,pass,name);
             Object encry=encryptData(u);
             ObjectOutputStream oos = new ObjectOutputStream(link.getOutputStream());
             oos.writeObject("A");

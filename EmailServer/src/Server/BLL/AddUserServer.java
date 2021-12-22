@@ -28,7 +28,7 @@ public class AddUserServer {
             String addUser = "ok";
             String pattern ="^[\\w.+\\-]+@sv\\.com$";
             String matcher = ((User)o).getUserName();
-            if(!Pattern.matches(pattern, matcher) && ((User)o).getHotenUser().equals(""))
+            if(!Pattern.matches(pattern, matcher) || ((User)o).getHotenUser().equals("")||((User)o).getPassword().equals("d41d8cd98f00b204e9800998ecf8427e"))
             {
                 addUser = "Error";
             }else if (o instanceof User) {
