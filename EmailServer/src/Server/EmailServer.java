@@ -65,7 +65,8 @@ public class EmailServer {
             } while (true);
         } catch (EOFException e) {
             System.out.println("Đọc file thành công");
-        } finally {
+        }
+        finally {
             if (fileIn != null) fileIn.close();
         }
     }

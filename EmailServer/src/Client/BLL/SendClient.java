@@ -13,8 +13,7 @@ import javax.swing.text.*;
 import static Client.BLL.CipherClient.encryptData;
 import static Client.EmailClient.link;
 import static Client.GUI.Login.username;
-import static Client.GUI.Main.ois;
-import static Client.GUI.Main.oos;
+import static Client.GUI.Main.*;
 
 public class SendClient {
     private JTextField recipient;
@@ -376,6 +375,9 @@ public class SendClient {
                 if(file__!=null) {
                     temp.setNameAttchment(file__.getName());
                     temp.setAttachment(file__);
+                }else if (filedraft!=null){
+                    temp.setNameAttchment(filedraft.getName());
+                    temp.setAttachment(filedraft);
                 }
                 oos = new ObjectOutputStream(link.getOutputStream());
                 oos.writeObject("S");

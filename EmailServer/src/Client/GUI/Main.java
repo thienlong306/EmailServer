@@ -98,7 +98,10 @@ public class Main extends JFrame {
     public static ObjectInputStream ois;
     public static ObjectOutputStream oos;
     private byte[] attachment;
-
+    public static File filedraft;
+    public void setFileDraft(File file){
+        this.filedraft=file;
+    }
     public Main() {
         addWindowListener(
                 new WindowAdapter()

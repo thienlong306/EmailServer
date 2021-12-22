@@ -22,7 +22,7 @@ public class HandlerClient   extends Thread {
     }
     //MULTITHREADED METHOD DEFINITION
     public synchronized void run() {
-        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Connection");
+//        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Connection");
         try {
             new CipherServer(client).CipherServer();
             do {
@@ -71,7 +71,7 @@ public class HandlerClient   extends Thread {
             } while (true);
         } catch (IOException e) {
 //            e.printStackTrace();
-            System.out.println(client.getInetAddress().getHostName() + " Disconnect");
+//            System.out.println(client.getInetAddress().getHostName() + " Disconnect");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

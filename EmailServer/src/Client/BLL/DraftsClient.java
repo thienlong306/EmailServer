@@ -16,6 +16,8 @@ import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.ArrayList;
 
+import static Client.GUI.Main.filedraft;
+
 public class DraftsClient {
     private JPanel Draft;
     private JTable draftTable;
@@ -98,7 +100,9 @@ public class DraftsClient {
                    FileOutputStream fileOut = new FileOutputStream(temp.getNameAttchment());
                    fileOut.write(temp.getAttachment());
                    file = new File(temp.getNameAttchment());
-                   new SendClient().setFile(file);
+                   if (file!=null)
+                       filedraft=file;
+                   else filedraft=null;
                } catch (FileNotFoundException fileNotFoundException) {
                    fileNotFoundException.printStackTrace();
                } catch (IOException ioException) {

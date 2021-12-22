@@ -87,7 +87,7 @@ public class SendServer {
                     Object bcc = o;
                     ((Email) bcc).setStatus("Recip");
                     if (((Email) bcc).getBCC().contains(";")) {
-                        listBcc = ((Email) o).getCC().split(";");
+                        listBcc = ((Email) bcc).getBCC().split(";");
                         ((Email) bcc).setBCC("Bạn");
                         for (int i = 0; i < listBcc.length; i++) {
                             if (checkData(listBcc[i]))
@@ -100,7 +100,6 @@ public class SendServer {
                             syn(bcc, tmp);
                         }
                     }
-
                     Object recip = o;
                     ((Email) recip).setStatus("Recip");
                     ((Email) recip).setBCC("");
@@ -137,7 +136,6 @@ public class SendServer {
     }
     public static void syn(Object o,String username) throws IOException, ClassNotFoundException {
         ArrayList<Email> listEmail = new ArrayList<>();
-
         String checkSpam=((Email)o).getSender();
         ArrayList<String> tmp=new ArrayList<>();
         for (int i=0;i<listUser.size();i++){

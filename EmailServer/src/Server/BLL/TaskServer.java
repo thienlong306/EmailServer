@@ -24,7 +24,7 @@ public class TaskServer extends TimerTask {
             Object bcc = o;
             ((Email) bcc).setStatus("Recip");
             if (((Email) bcc).getBCC().contains(";")) {
-                listBcc = ((Email) o).getCC().split(";");
+                listBcc = ((Email) o).getBCC().split(";");
                 ((Email) bcc).setBCC("Bạn");
                 for (int i = 0; i < listBcc.length; i++) {
                     if (checkData(listBcc[i]))

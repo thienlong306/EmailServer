@@ -115,7 +115,7 @@ public class ScheduleClient extends JFrame {
                  JOptionPane.showMessageDialog(pickDate,(String)o);
                  oos.flush();
              } catch (IOException ioException) {
-                 ioException.printStackTrace();
+                 JOptionPane.showMessageDialog(null,"Mất kết nối máy chủ");;
              } catch (ClassNotFoundException classNotFoundException) {
                  classNotFoundException.printStackTrace();
              } catch (NullPointerException ex){
