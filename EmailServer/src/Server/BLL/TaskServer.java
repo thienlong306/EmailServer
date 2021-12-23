@@ -19,6 +19,7 @@ public class TaskServer extends TimerTask {
 
     public void run() {
         try {
+            ((Email)o).setDateTime();
             String listBcc[];
             String listCc[];
             Object bcc = o;

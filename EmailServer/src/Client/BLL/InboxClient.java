@@ -41,7 +41,7 @@ public class InboxClient {
     }
 
     public void setInboxClient() {
-        String col[] = {"Người giửi", "Chủ đề", "Nội dung", "File","Thời gian"};
+        String col[] = {"Người gửi", "Chủ đề", "Nội dung", "File","Thời gian"};
         model = new DefaultTableModel(col, 0);
         getListInbox();
         inbox.setModel(model);

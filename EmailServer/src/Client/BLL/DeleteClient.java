@@ -51,7 +51,7 @@ public class DeleteClient {
     }
 
     public void setDeleteClien() {
-        String col[] = {"Người giửi","Người nhận", "Chủ đề", "Nội dung", "File","Thời gian"};
+        String col[] = {"Người gửi","Người nhận", "Chủ đề", "Nội dung", "File","Thời gian"};
         model = new DefaultTableModel(col, 0);
         getListSpam();
         inbox.setModel(model);

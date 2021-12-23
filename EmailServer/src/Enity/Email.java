@@ -136,5 +136,7 @@ public class Email implements Serializable {
         return formattedDate;
     }
 
-
+    public void setDateTime() {
+        this.dateTime= LocalDateTime.now();
+    }
 }
