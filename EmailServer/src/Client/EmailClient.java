@@ -43,7 +43,7 @@ public class EmailClient {
            new CipherClient().CipherClient();
            UIManager.put("TextPane.font",
                    new Font(DEFAULT_FONT_FAMILY, Font.PLAIN, DEFAULT_FONT_SIZE));
-           UIManager.setLookAndFeel(new NimbusLookAndFeel());
+           UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
            SwingUtilities.invokeLater(new Runnable() {
                @Override
@@ -54,6 +54,12 @@ public class EmailClient {
 
        } catch (UnsupportedLookAndFeelException e) {
            System.out.println(e);
+       } catch (ClassNotFoundException e) {
+           e.printStackTrace();
+       } catch (InstantiationException e) {
+           e.printStackTrace();
+       } catch (IllegalAccessException e) {
+           e.printStackTrace();
        }
     }
 
