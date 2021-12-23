@@ -17,7 +17,7 @@ import java.security.PublicKey;
 
 public class EmailClient {
     public static InetAddress host;
-    public static final int PORT = 2233;
+    public static final int PORT = 52233;
     public static Socket link;
     public static User user;
     public static ObjectInputStream objectIn;
@@ -29,6 +29,7 @@ public class EmailClient {
         try {
             host = InetAddress.getLocalHost();
             link = new Socket(host, PORT);
+//            link = new Socket("58.186.21.8", 52233);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {

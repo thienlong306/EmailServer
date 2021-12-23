@@ -55,7 +55,7 @@ public class SpamServer {
         }else {
             tmp.add((String) o);
         }
-        System.out.println(tmp);
+//        System.out.println(tmp);
         listUser.get(index).ListSpam(tmp);
 
         for (int i=0;i<listEmail.size();i++){

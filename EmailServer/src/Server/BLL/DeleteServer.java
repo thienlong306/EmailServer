@@ -22,7 +22,7 @@ public class DeleteServer {
         ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
         Object o = objectIn.readObject();
         String username=(String)o;
-        System.out.println((String)o);
+//        System.out.println((String)o);
         String check = "ok";
 
         ArrayList<Email> listEmail = new ArrayList<>();

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class EmailServer {
     private static ServerSocket servSocket;
-    private static final int PORT = 2233;
+    private static final int PORT = 52233;
     public static ArrayList<User> listUser = new ArrayList<>();
     public static ArrayList<KeyUser> listkey=new ArrayList<>();
     private static ObjectInputStream fileIn;
