@@ -6,16 +6,14 @@ import java.net.Socket;
 
 import static Server.BLL.CipherServer.decryptData;
 import static Server.BLL.HandlerClient.objectIn;
-import static Server.BLL.HandlerClient.usermain;
 import static Server.EmailServer.listUser;
 
 public class CheckUserServer {
     public static Socket client;
-
+    public static String usermain;
     public CheckUserServer(Socket socket) {
         client = socket;
     }
-
     public static void CheckUserServer() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
@@ -23,7 +21,8 @@ public class CheckUserServer {
             o=decryptData(o,client);
             String checkLogin = "Error";
             if (o.equals("LG")){
-                System.out.println(usermain+" Logout");
+                o = objectIn.readObject();
+                System.out.println(o+" Logout");
             }else {
                 if (o instanceof User) {
                     for (User u : listUser) {

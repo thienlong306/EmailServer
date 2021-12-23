@@ -11,7 +11,6 @@ public class HandlerClient   extends Thread {
     private Socket client;
     public static ObjectInputStream objectIn;
     public static ObjectOutputStream objectOut;
-    public static String usermain;
     public static SecretKey key;
     public static GenerateKeys sv;
     protected static int indexkey=-1;
@@ -20,6 +19,7 @@ public class HandlerClient   extends Thread {
         //GET SOCKET REFERENCE FROM SERVER
         client = socket;
     }
+
     //MULTITHREADED METHOD DEFINITION
     public synchronized void run() {
 //        System.out.println(client.getInetAddress().getHostName()+":"+client.getPort() + " Connection");

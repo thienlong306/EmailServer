@@ -15,6 +15,7 @@ import java.io.ObjectOutputStream;
 
 import static Client.BLL.CipherClient.encryptData;
 import static Client.EmailClient.link;
+import static Client.EmailClient.user;
 import static Client.GUI.Login.username;
 
 public class Main extends JFrame {
@@ -114,6 +115,7 @@ public class Main extends JFrame {
                             String lg="LG";
                             Object encry=encryptData(lg);
                             oos.writeObject(encry);
+                            oos.writeObject(username);
                             ois = new ObjectInputStream(link.getInputStream());
                             Object o = ois.readObject();
                             JOptionPane.showMessageDialog(panelMain,"Logout");
