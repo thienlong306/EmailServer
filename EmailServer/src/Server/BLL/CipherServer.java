@@ -83,7 +83,7 @@ public class CipherServer {
         SealedObject sealedObject = null;
         try {
             //Mã khóa Object
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("AES");
             for (int i=0;i<listkey.size();i++){
                 if(client1.equals(listkey.get(i).getClient())){
                     cipher.init(Cipher.ENCRYPT_MODE, listkey.get(i).getKey());

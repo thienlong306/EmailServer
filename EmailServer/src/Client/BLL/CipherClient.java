@@ -85,7 +85,7 @@ public class CipherClient {
         SealedObject sealedObject = null;
         try {
             //Mã khóa Object
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, myKey.getKey());
             sealedObject = new SealedObject((Serializable) o, cipher);
 //            encrypt=Base64.getEncoder().encodeToString(cipher.doFinal((byte[]) o));
