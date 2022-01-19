@@ -19,4 +19,4 @@
 - Mã hóa khóa đối xứng AES
 - Mã hóa bất đối xứng RSA
 ### Ảnh
-![Demo] ( /Doc/images.png "Ảnh Demo")
+![Demo]( /Doc/images.png "Ảnh Demo")
