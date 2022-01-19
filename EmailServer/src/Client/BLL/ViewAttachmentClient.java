@@ -1,6 +1,6 @@
 package Client.BLL;
 
-import javax.media.*;
+//import javax.media.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -8,7 +8,7 @@ import java.awt.event.WindowEvent;
 import java.io.*;
 
 
-public class ViewAttachmentClient extends JFrame implements ControllerListener {
+public class ViewAttachmentClient extends JFrame{
     //DECLARE FILEIN STREAM FOR GETTING STRING
     private static BufferedReader fileIn;
     //DECLARE COMPONENETS TO BE PLACED ON GUI
@@ -105,7 +105,7 @@ public class ViewAttachmentClient extends JFrame implements ControllerListener {
     }
 
     private byte[] attachment;
-    private Player player;
+//    private Player player;
     private File file;
     public void ViewMediaAttachment(byte[] attachment, String name)
     {
@@ -140,24 +140,24 @@ public class ViewAttachmentClient extends JFrame implements ControllerListener {
         }
     }
     //SET UP CONTROLLER EVENT LISTENER FOR PLAYER
-    public void controllerUpdate(ControllerEvent e)
-    {
-        if (e instanceof RealizeCompleteEvent)
-        {
-            //CREATE PLAY WINDOW AND ADD TO PANE
-            Component visualComponent = player.getVisualComponent();
-            if(visualComponent != null)
-            {
-                pane.add(visualComponent, BorderLayout.CENTER);
-            }
-            //CREATE CONTROL PANEL AND ADD TO WINDOW
-            Component controlsComponent = player.getControlPanelComponent();
-            if(controlsComponent != null)
-            {
-                pane.add(controlsComponent, BorderLayout.SOUTH);
-            }
-            //SET UP LAYOUT
-            pane.doLayout();
-        }
-    }
+//    public void controllerUpdate(ControllerEvent e)
+//    {
+//        if (e instanceof RealizeCompleteEvent)
+//        {
+//            //CREATE PLAY WINDOW AND ADD TO PANE
+//            Component visualComponent = player.getVisualComponent();
+//            if(visualComponent != null)
+//            {
+//                pane.add(visualComponent, BorderLayout.CENTER);
+//            }
+//            //CREATE CONTROL PANEL AND ADD TO WINDOW
+//            Component controlsComponent = player.getControlPanelComponent();
+//            if(controlsComponent != null)
+//            {
+//                pane.add(controlsComponent, BorderLayout.SOUTH);
+//            }
+//            //SET UP LAYOUT
+//            pane.doLayout();
+//        }
+//    }
 }
