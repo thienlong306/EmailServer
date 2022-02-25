@@ -1,22 +1,22 @@
 # EmailServer
-### MÔ PHỎNG HỆ THỐNG EMAIL BẰNG JAVA SOCKET
-### Chức năng phía client ( có GUI):
-- Các chức năng gửi nhận thư tương tự một mail client đơn giản:
-    - Send (bao gồm cả CC và BCC) tới 1 hoặc nhiều địa chỉ email: nội dung email có thể format đơn giản (cỡ chữ, màu chữ, in đậm/nghiêng,…) và có thể nhúng hình ảnh, file đính kèm.
+### SIMULATE EMAIL SYSTEM WITH JAVA SOCKET
+### Client-side functionality (with GUI):
+- The functions of sending and receiving mail are similar to a simple mail client:
+    - Send (including CC and BCC) to 1 or more email addresses: email content can be simply formatted (font size, font color, bold/italic, ...) and can embed images, attachments .
     - Receive
     - Reply; reply all
-    - Mark spam email
+    - Mark spam emails
     - Schedule send
     - Delete
     - OpenFile
-- Mô phỏng cách phân loại email vào các nhóm: Inbox (dành cho email mới đến và chưa được đọc); Read (email đã được đọc); Sent (dành cho email đã gửi đi); Spam (dành cho email bị đánh dấu spam); Bin (dành cho email bị xóa; Drafts Offline (dành cho email nháp muốn lưu tại máy).
-- Thông tin user, data, đổi mật khẩu
-### Chức năng phía server (không có GUI):
-- Server ghi log về quá trình login/logout của client.
-- Server có thể đặt và thay đổi dung lượng hộp thư của user. Mặc định là 100 MB / user.
-- Server có thể khóa hoặc gửi email thông báo tới 1user hoặc tất cả user.
-### Mã hoá Hybrid
-- Mã hóa khóa đối xứng AES
-- Mã hóa bất đối xứng RSA
-### Ảnh
+- Simulate how to categorize emails into groups: Inbox (for incoming and unread emails); Read (email has been read); Sent (for sent email); Spam (for emails marked as spam); Bin (for deleted emails; Drafts Offline (for draft emails you want to save locally).
+- User information, data, change password
+### Server-side functionality (no GUI):
+- The server logs the client's login/logout process.
+- The server can set and change the user's mailbox size. Default is 100 MB/user.
+- The server can block or send email notifications to 1 user or all users.
+### Hybrid Encryption
+- AES . symmetric key encryption
+- RSA . asymmetric encryption
+### Photo
 ![Demo]( /Doc/images.png "Ảnh Demo")
