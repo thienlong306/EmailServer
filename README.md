@@ -26,12 +26,9 @@ Building a Mail Server System with Java Socket(TCP/IP)
     - AES . symmetric key encryption
     - RSA . asymmetric encryption
 
-## Installation
-```bash
-  Open folder EmailServer on IntelliJ IDEA
-  Add lib in folder lib
-  Run
-```
+## Downloads
+
+Download `EmailServer.exe` from the [latest release](https://github.com/thienlong306/EmailServer/releases).
 
     
 ## Screenshots
